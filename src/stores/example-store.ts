@@ -1,4 +1,4 @@
-import { defineStore, acceptHMRUpdate } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({
@@ -6,16 +6,16 @@ export const useCounterStore = defineStore('counter', {
   }),
 
   getters: {
-    doubleCount: (state) => state.counter * 2,
+    doubleCount: state => state.counter * 2,
   },
 
   actions: {
     increment() {
-      this.counter++;
+      this.counter++
     },
   },
-});
+})
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useCounterStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useCounterStore, import.meta.hot))
 }
