@@ -5,6 +5,7 @@
       "name": "real-time-map",
       "dependencies": {
         "@quasar/extras": "^1.16.4",
+        "@yandex/ymaps3-types": "^1.0.16530300",
         "axios": "^1.2.1",
         "husky": "^9.1.7",
         "lint-staged": "^16.0.0",
@@ -13,6 +14,7 @@
         "vue": "^3.4.18",
         "vue-i18n": "^11.1.3",
         "vue-router": "^4.0.12",
+        "vue-yandex-maps": "^2.1.9",
       },
       "devDependencies": {
         "@antfu/eslint-config": "^4.12.0",
@@ -377,6 +379,8 @@
     "@vue/server-renderer": ["@vue/server-renderer@3.5.14", "", { "dependencies": { "@vue/compiler-ssr": "3.5.14", "@vue/shared": "3.5.14" }, "peerDependencies": { "vue": "3.5.14" } }, "sha512-Rf/ISLqokIvcySIYnv3tNWq40PLpNLDLSJwwVWzG6MNtyIhfbcrAxo5ZL9nARJhqjZyWWa40oRb2IDuejeuv6w=="],
 
     "@vue/shared": ["@vue/shared@3.5.14", "", {}, "sha512-oXTwNxVfc9EtP1zzXAlSlgARLXNC84frFYkS0HHz0h3E4WZSP9sywqjqzGCP9Y34M8ipNmd380pVgmMuwELDyQ=="],
+
+    "@yandex/ymaps3-types": ["@yandex/ymaps3-types@1.0.16530300", "", { "peerDependencies": { "@types/react": "16-18", "@types/react-dom": "16-18", "@vue/runtime-core": "3" }, "optionalPeers": ["@types/react", "@types/react-dom", "@vue/runtime-core"] }, "sha512-cftV6Y6jbY6oXUSkGWDJDNLQgsA+SdQCW758snHisS48P/xUFjSJEGjLdOKr4fs9X48SX2mKkbqLIl/56nKfJA=="],
 
     "abort-controller": ["abort-controller@3.0.0", "", { "dependencies": { "event-target-shim": "^5.0.0" } }, "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg=="],
 
@@ -1439,6 +1443,8 @@
     "vue-router": ["vue-router@4.5.1", "", { "dependencies": { "@vue/devtools-api": "^6.6.4" }, "peerDependencies": { "vue": "^3.2.0" } }, "sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw=="],
 
     "vue-tsc": ["vue-tsc@2.2.10", "", { "dependencies": { "@volar/typescript": "~2.4.11", "@vue/language-core": "2.2.10" }, "peerDependencies": { "typescript": ">=5.0.0" }, "bin": { "vue-tsc": "./bin/vue-tsc.js" } }, "sha512-jWZ1xSaNbabEV3whpIDMbjVSVawjAyW+x1n3JeGQo7S0uv2n9F/JMgWW90tGWNFRKya4YwKMZgCtr0vRAM7DeQ=="],
+
+    "vue-yandex-maps": ["vue-yandex-maps@2.1.9", "", { "dependencies": { "@yandex/ymaps3-types": ">=1.0.16530300" }, "peerDependencies": { "@vue/composition-api": ">=1", "nuxt": "^2.16 || ^3", "vue": "^2.7 || ^3.3" }, "optionalPeers": ["@vue/composition-api", "nuxt"] }, "sha512-apZprg1ZKUogyQeFnU/g1UPpeXOuPDbaeBH9C97jt6iCkNXPQoQQmrss/mQvJ5w1iMJ1tyWxRo1IgAFQA31aPw=="],
 
     "wcwidth": ["wcwidth@1.0.1", "", { "dependencies": { "defaults": "^1.0.3" } }, "sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg=="],
 
