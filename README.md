@@ -4,9 +4,7 @@ A public map where users can leave anonymous or signed messages that are display
 
 ## Install the dependencies
 ```bash
-yarn
-# or
-npm install
+bun i
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -17,9 +15,7 @@ quasar dev
 
 ### Lint the files
 ```bash
-yarn lint
-# or
-npm run lint
+bun run lint
 ```
 
 
@@ -27,6 +23,3 @@ npm run lint
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
