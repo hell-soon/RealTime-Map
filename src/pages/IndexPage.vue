@@ -1,76 +1,43 @@
 <script setup lang="ts">
-import type { LngLat, YMap } from '@yandex/ymaps3-types'
-import { onMounted, ref, shallowRef } from 'vue'
+import type { YMap } from '@yandex/ymaps3-types'
+import GeolocationFeedback from 'src/features/geolocation/components/GeolocationFeedback.vue'
+import { useGeolocation } from 'src/features/geolocation/composables/useGeolocation'
+import BaseMapView from 'src/features/map-core/components/BaseMapView.vue'
 
-import {
-  YandexMap,
-  YandexMapDefaultFeaturesLayer,
-  YandexMapDefaultMarker,
-  YandexMapDefaultSchemeLayer,
-} from 'vue-yandex-maps'
+const { userPosition, error: geolocationError, isLoading: isLoadingGeolocation } = useGeolocation()
+const mapApi = shallowRef<null | YMap>(null)
 
-const userPosition = ref<LngLat>()
-const error = ref<string | null>(null)
-
-const map = shallowRef<null | YMap>(null)
-
-onMounted(() => {
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude
-        const lng = position.coords.longitude
-        userPosition.value = [lng, lat]
-      },
-      (err) => {
-        error.value = `Ошибка: ${err.message}`
-        console.error(error.value)
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 0,
-      },
-    )
-  }
-  else {
-    error.value = 'Геолокация не поддерживается в этом браузере.'
-  }
-})
+function handleMapReady(map: YMap) {
+  mapApi.value = map
+}
 </script>
 
 <template>
-  <q-page>
-    <YandexMap
-      v-if="userPosition"
-      v-model="map"
-      :settings="{
-        location: {
-          center: userPosition,
-          zoom: 13,
-        },
-      }"
-      width="100%"
-      height="97dvh"
+  <q-page class="column items-stretch" style="height: calc(100vh - 50px);">
+    <GeolocationFeedback
+      v-if="isLoadingGeolocation || geolocationError"
+      :is-loading="isLoadingGeolocation"
+      :error="geolocationError"
+      class="absolute-center z-top"
+    />
+    <BaseMapView
+      v-if="!isLoadingGeolocation && !geolocationError && userPosition"
+      :center-coordinates="userPosition"
+      :zoom-level="15"
+      :show-user-marker="true"
+      :user-marker-settings="{ title: 'Мое местоположение', color: 'red' }"
+      class="col"
+      @map-ready="handleMapReady"
     >
-      <YandexMapDefaultSchemeLayer />
-      <YandexMapDefaultFeaturesLayer />
+      <!-- <AnotherMapFeatureComponent :map-api="mapApi" /> -->
+    </BaseMapView>
 
-      <!-- 🔵 Маркер на позицию пользователя -->
-      <YandexMapDefaultMarker
-        :settings="{
-          coordinates: userPosition,
-        }"
-      />
-    </YandexMap>
-
-    <div v-else class="q-pa-md">
-      <q-spinner color="primary" size="2em" />
-      <p>Определяем местоположение...</p>
-    </div>
-
-    <div v-if="error" class="text-negative q-pa-md">
-      {{ error }}
+    <div
+      v-else-if="!isLoadingGeolocation && !geolocationError && !userPosition"
+      class="column items-center justify-center fit text-grey-7"
+    >
+      <q-icon name="location_off" size="3em" />
+      <p>Не удалось определить местоположение для отображения карты.</p>
     </div>
   </q-page>
 </template>

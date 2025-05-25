@@ -1,8 +1,10 @@
 {
   "extends": "./.quasar/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./node_modules",
     "types": [
       "vite/client",
+      "vite",
       "node",
       "quasar"
     ]
