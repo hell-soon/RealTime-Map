@@ -31,10 +31,10 @@ export default function (ctx: any): PluginEntry[] { // ctx может быть �
           ],
         },
       ],
-      dts: path.resolve(__dirname, '../src/auto-imports.d.ts'),
+      dts: path.resolve(__dirname, '../../src/auto-imports.d.ts'),
       eslintrc: {
         enabled: true,
-        filepath: path.resolve(__dirname, '../.eslintrc-auto-import.json'),
+        filepath: path.resolve(__dirname, '../../.eslintrc-auto-import.json'),
         globalsPropValue: true,
       },
       vueTemplate: true,
