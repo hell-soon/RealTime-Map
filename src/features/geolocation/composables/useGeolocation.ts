@@ -11,7 +11,7 @@ export function useGeolocation() {
     userPosition.value = null
 
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.watchPosition(
         (position) => {
           const lat = position.coords.latitude
           const lng = position.coords.longitude
@@ -25,7 +25,7 @@ export function useGeolocation() {
         },
         {
           enableHighAccuracy: true,
-          timeout: 15000,
+          timeout: 30000,
           maximumAge: 0,
         },
       )
