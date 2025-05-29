@@ -11,8 +11,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    component: () => import('pages/Login.vue'),
-    // children: [{ path: '', component: () => import('src/pages/Login.vue') }],
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('src/pages/Login.vue') }],
   },
   {
     path: '/:catchAll',
