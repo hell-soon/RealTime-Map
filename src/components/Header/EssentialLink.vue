@@ -14,11 +14,12 @@ withDefaults(defineProps<EssentialLinkProps>(), {
 </script>
 
 <template>
-  <q-item
+  <q-btn
+    flat
+    align="left"
+    class="full-width"
     clickable
-    tag="a"
-    target="_blank"
-    :href="link"
+    :to="link"
   >
     <q-item-section
       v-if="icon"
@@ -33,5 +34,5 @@ withDefaults(defineProps<EssentialLinkProps>(), {
         {{ caption }}
       </q-item-label>
     </q-item-section>
-  </q-item>
+  </q-btn>
 </template>
