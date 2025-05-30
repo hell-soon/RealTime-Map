@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { LngLat, YMap } from '@yandex/ymaps3-types'
-// import type { PropType } from 'vue'
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
@@ -10,7 +9,7 @@ import {
 } from 'vue-yandex-maps'
 
 interface Props {
-  centerCoordinates: LngLat | null
+  centerCoordinates: LngLat
   zoomLevel?: number
   showUserMarker?: boolean
   userMarkerSettings?: object
@@ -37,21 +36,20 @@ watch(mapInstance, (newMap) => {
 })
 
 const zoom = ref(props.zoomLevel)
+const center = ref(props.centerCoordinates)
 
 function onMapZoomChange(event: any) {
   const newZoom = event?.location?.zoom
+  const newCenter = event?.location?.center
+
+  if (newCenter) {
+    center.value = newCenter
+  }
+
   if (typeof newZoom === 'number') {
     zoom.value = newZoom
-    localStorage.setItem('mapZoom', String(newZoom))
   }
 }
-
-onMounted(() => {
-  const storedZoom = localStorage.getItem('mapZoom')
-  if (storedZoom) {
-    zoom.value = Number(storedZoom)
-  }
-})
 </script>
 
 <template>
@@ -64,7 +62,7 @@ onMounted(() => {
     v-model="mapInstance"
     :settings="{
       location: {
-        center: centerCoordinates,
+        center,
         zoom,
       },
       theme: $q.dark.mode ? 'dark' : 'light',
@@ -82,6 +80,7 @@ onMounted(() => {
         ...props.userMarkerSettings,
       }"
     />
+
     <slot />
 
     <YandexMapListener
@@ -91,11 +90,3 @@ onMounted(() => {
     />
   </YandexMap>
 </template>
-
-<!-- <style scoped>
-div[v-if="!centerCoordinates"] {
-  width: 100%;
-  height: 100%;
-  background-color: #f0f0f0; /* Пример фона для состояния ожидания */
-}
-</style> -->
