@@ -24,7 +24,7 @@ const dialog = useDialogStore()
 
 function openSettings() {
   dialog.openDialog(MainSettings)
-  // leftDrawerOpen.value = false
+  leftDrawerOpen.value = false
 }
 
 function toggleLeftDrawer() {
@@ -70,7 +70,6 @@ function toggleLeftDrawer() {
       <q-btn
         clickable
         flat
-        round
         dense
         icon="settings"
         @click="openSettings"
