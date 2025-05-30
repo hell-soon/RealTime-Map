@@ -6,5 +6,6 @@ export function getBootConfig(_ctx: any): QuasarBootConfiguration {
     'i18n',
     'axios',
     'yandex',
+    'addressbar-color',
   ]
 }
