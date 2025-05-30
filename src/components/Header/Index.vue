@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { EssentialLinkProps } from 'src/components/Header/EssentialLink.vue'
 import EssentialLink from 'src/components/Header/EssentialLink.vue'
+import MainSettings from 'src/features/settings/components/MainSettings.vue'
+import { useDialogStore } from 'src/stores/dialog'
 
 const linksList: EssentialLinkProps[] = [
   {
@@ -15,15 +17,15 @@ const linksList: EssentialLinkProps[] = [
     icon: 'message',
     link: '/message',
   },
-  {
-    title: 'Settings',
-    caption: 'App Settings',
-    icon: 'settings',
-    link: '/settings',
-  },
 ]
 
 const leftDrawerOpen = ref(false)
+const dialog = useDialogStore()
+
+function openSettings() {
+  dialog.openDialog(MainSettings)
+  // leftDrawerOpen.value = false
+}
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
@@ -47,7 +49,7 @@ function toggleLeftDrawer() {
     v-model="leftDrawerOpen"
     show-if-above
     bordered
-    class="drawer-style"
+    class="drawer-style column justify-between"
   >
     <q-list>
       <q-item-label
@@ -63,6 +65,17 @@ function toggleLeftDrawer() {
         v-bind="link"
       />
     </q-list>
+
+    <div class="q-pa-sm">
+      <q-btn
+        clickable
+        flat
+        round
+        dense
+        icon="settings"
+        @click="openSettings"
+      />
+    </div>
   </q-drawer>
 </template>
 
