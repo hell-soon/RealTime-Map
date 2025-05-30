@@ -1,3 +1,5 @@
 <template>
-  <h1>Message</h1>
+  <div class="fixed-center">
+    <h5>Message</h5>
+  </div>
 </template>

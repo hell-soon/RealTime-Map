@@ -15,7 +15,7 @@ function Auth() {
   if (!valid) {
     $q.notify({
       type: 'negative',
-      message: 'Заполните все поля',
+      message: 'Fill in all fields',
     })
   }
 
@@ -26,7 +26,7 @@ function Auth() {
   else {
     $q.notify({
       type: 'negative',
-      message: 'Неверный логин или пароль',
+      message: 'Invalid username or password',
       position: 'top',
     })
   }
@@ -34,10 +34,10 @@ function Auth() {
 </script>
 
 <template>
-  <q-page class="flex flex-center">
-    <div style="width: 100%; max-width: 300px">
+  <q-page>
+    <div class="fixed-center" style="width: 100%; max-width: 300px">
       <h5 class="q-mb-md text-center">
-        Авторизация
+        Welcome RealTime Map!
       </h5>
 
       <q-form
@@ -48,25 +48,25 @@ function Auth() {
         <q-input
           v-model="login"
           filled
-          label="Логин -- admin"
+          label="Login -- admin"
           lazy-rules
-          :rules="[val => !!val || 'Введите логин']"
+          :rules="[val => !!val || 'Enter your login']"
         />
 
         <q-input
           v-model="password"
           filled
-          label="Пароль -- 123456"
+          label="Password -- 123456"
           type="password"
           lazy-rules
           :rules="[
-            val => !!val || 'Введите пароль',
-            val => val.length >= 6 || 'Минимум 6 символов',
+            val => !!val || 'Enter the password',
+            val => val.length >= 6 || 'Minimum of 6 characters',
           ]"
         />
 
         <q-btn
-          label="Войти"
+          label="Submit"
           color="primary"
           type="submit"
         />

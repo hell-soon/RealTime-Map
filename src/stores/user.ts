@@ -1,4 +1,3 @@
-// src/stores/user.ts
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
@@ -8,6 +7,7 @@ export const useUserStore = defineStore('user', {
   actions: {
     login() {
       this.isAuthenticated = true
+      window.localStorage.setItem('isAuthenticated', 'true')
     },
     logout() {
       this.isAuthenticated = false
