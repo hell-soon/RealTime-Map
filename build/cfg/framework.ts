@@ -3,8 +3,8 @@ import type { QuasarFrameworkConfiguration } from '@quasar/app-vite/types/config
 
 export const frameworkConfig: QuasarFrameworkConfiguration = {
   config: {},
-  // iconSet: 'material-icons',
-  // lang: 'en-US',
+  iconSet: 'material-icons',
+  lang: 'en-US',
   plugins: [
     'Notify',
     'AddressbarColor',

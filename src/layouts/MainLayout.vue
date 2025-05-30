@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import Header from 'components/Header/Index.vue'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
+
+$q.addressbarColor.set('primary')
 </script>
 
 <template>
