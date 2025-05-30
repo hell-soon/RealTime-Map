@@ -6,7 +6,15 @@ import {
   YandexMapDefaultFeaturesLayer,
   YandexMapDefaultMarker,
   YandexMapDefaultSchemeLayer,
+  YandexMapListener,
 } from 'vue-yandex-maps'
+
+interface Props {
+  centerCoordinates: LngLat | null
+  zoomLevel?: number
+  showUserMarker?: boolean
+  userMarkerSettings?: object
+}
 
 const props = withDefaults(defineProps<Props>(), {
   zoomLevel: 13,
@@ -20,18 +28,28 @@ const emit = defineEmits<{
 
 const $q = useQuasar()
 
-interface Props {
-  centerCoordinates: LngLat | null
-  zoomLevel?: number
-  showUserMarker?: boolean
-  userMarkerSettings?: object
-}
-
 const mapInstance = shallowRef<null | YMap>(null)
 
 watch(mapInstance, (newMap) => {
   if (newMap) {
     emit('mapReady', newMap)
+  }
+})
+
+const zoom = ref(props.zoomLevel)
+
+function onMapZoomChange(event: any) {
+  const newZoom = event?.location?.zoom
+  if (typeof newZoom === 'number') {
+    zoom.value = newZoom
+    localStorage.setItem('mapZoom', String(newZoom))
+  }
+}
+
+onMounted(() => {
+  const storedZoom = localStorage.getItem('mapZoom')
+  if (storedZoom) {
+    zoom.value = Number(storedZoom)
   }
 })
 </script>
@@ -47,17 +65,14 @@ watch(mapInstance, (newMap) => {
     :settings="{
       location: {
         center: centerCoordinates,
-        zoom: props.zoomLevel,
+        zoom,
       },
       theme: $q.dark.mode ? 'dark' : 'light',
     }"
     width="100%"
     height="100%"
   >
-    <YandexMapDefaultSchemeLayer
-      :settings="{
-      }"
-    />
+    <YandexMapDefaultSchemeLayer />
     <YandexMapDefaultFeaturesLayer />
 
     <YandexMapDefaultMarker
@@ -68,6 +83,12 @@ watch(mapInstance, (newMap) => {
       }"
     />
     <slot />
+
+    <YandexMapListener
+      :settings="{
+        onUpdate: onMapZoomChange,
+      }"
+    />
   </YandexMap>
 </template>
 

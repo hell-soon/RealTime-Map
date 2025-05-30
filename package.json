@@ -55,6 +55,7 @@
   "simple-git-hooks": {
     "pre-commit": "bun x lint-staged && bun run typecheck",
     "post-commit": "git status",
+    "pre-push": "bun x lint-staged && bun run typecheck",
     "post-merge": "bun i"
   },
   "lint-staged": {

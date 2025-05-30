@@ -1,5 +1,5 @@
 import { defineRouter } from '#q-app/wrappers'
-import { useUserStore } from 'stores/user'
+// import { useUserStore } from 'stores/user'
 import {
   createMemoryHistory,
   createRouter,
@@ -20,18 +20,18 @@ export default defineRouter((/* { store, ssrContext } */) => {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   })
 
-  Router.beforeEach((to, from, next) => {
-    const userStore = useUserStore()
+  // Router.beforeEach((to, from, next) => {
+  //   const userStore = useUserStore()
 
-    const publicPages = ['/login']
-    const authRequired = !publicPages.includes(to.path)
+  //   const publicPages = ['/login']
+  //   const authRequired = !publicPages.includes(to.path)
 
-    if (authRequired && !userStore.isAuthenticated) {
-      return next('/login')
-    }
+  //   if (authRequired && !userStore.isAuthenticated) {
+  //     return next('/login')
+  //   }
 
-    next()
-  })
+  //   next()
+  // })
 
   return Router
 })
