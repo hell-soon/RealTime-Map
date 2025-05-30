@@ -4,7 +4,7 @@ import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
 
-$q.addressbarColor.set('primary')
+$q.addressbarColor.set('#1976D2')
 </script>
 
 <template>
