@@ -1,7 +1,22 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
   failed: 'Action failed',
   success: 'Action was successful',
+
+  menu: {
+    header: 'Menu',
+    map: {
+      title: 'Map',
+      caption: 'Actual Map',
+    },
+    chat: {
+      title: 'Chat',
+      caption: 'Personal Chat',
+    },
+  },
+
+  theme: {
+    auto: 'Auto',
+    light: 'Light',
+    dark: 'Dark',
+  },
 }

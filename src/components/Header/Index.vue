@@ -3,17 +3,20 @@ import type { EssentialLinkProps } from 'src/components/Header/EssentialLink.vue
 import EssentialLink from 'src/components/Header/EssentialLink.vue'
 import MainSettings from 'src/features/settings/components/MainSettings.vue'
 import { useDialogStore } from 'src/stores/dialog'
+import { useI18n } from 'vue-i18n'
+
+const $t = useI18n().t
 
 const linksList: EssentialLinkProps[] = [
   {
-    title: 'Map',
-    caption: 'Actual Map',
+    title: $t('menu.map.title'),
+    caption: $t('menu.map.caption'),
     icon: 'map',
     link: '/',
   },
   {
-    title: 'Chat',
-    caption: 'Personal Chat',
+    title: $t('menu.chat.title'),
+    caption: $t('menu.chat.caption'),
     icon: 'message',
     link: '/message',
   },
@@ -56,7 +59,7 @@ function toggleLeftDrawer() {
         class="text-primary text-bold text-subtitle2 q-pa-sm"
         header
       >
-        Menu
+        {{ $t('menu.header') }}
       </q-item-label>
 
       <EssentialLink

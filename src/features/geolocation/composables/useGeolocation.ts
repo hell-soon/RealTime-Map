@@ -19,7 +19,7 @@ export function useGeolocation() {
           isLoading.value = false
         },
         (err) => {
-          error.value = `Ошибка геолокации: ${err.message}`
+          error.value = `Error getting geolocation: ${err.message}`
           console.error(error.value)
           isLoading.value = false
         },

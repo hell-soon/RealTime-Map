@@ -31,7 +31,6 @@ function handleMapReady(map: YMap) {
     >
       <!-- <AnotherMapFeatureComponent :map-api="mapApi" /> -->
     </BaseMapView>
-
     <div
       v-else-if="!isLoadingGeolocation && !geolocationError && !userPosition"
       class="column items-center justify-center fit text-grey-7"

@@ -10,7 +10,7 @@ defineProps<Props>()
   <div v-if="isLoading" class="column items-center justify-center q-pa-md">
     <q-spinner color="primary" size="3em" />
     <p class="q-mt-sm">
-      Определяем ваше местоположение...
+      Getting location...
     </p>
   </div>
   <div v-else-if="error" class="column items-center justify-center text-negative q-pa-md">

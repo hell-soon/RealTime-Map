@@ -23,7 +23,7 @@ const index = computed(() => {
         no-wrap
         ripple="false"
         icon="settings_brightness"
-        label="Auto"
+        :label="$t('theme.auto')"
         class="theme-toggle-btn"
         :class="{ active: theme === 'auto' }"
         @click="theme = 'auto'"
@@ -34,7 +34,7 @@ const index = computed(() => {
         no-wrap
         ripple="false"
         icon="light_mode"
-        label="Light"
+        :label="$t('theme.light')"
         class="theme-toggle-btn"
         :class="{ active: theme === false }"
         @click="theme = false"
@@ -45,7 +45,7 @@ const index = computed(() => {
         no-wrap
         ripple="false"
         icon="dark_mode"
-        label="Night"
+        :label="$t('theme.dark')"
         class="theme-toggle-btn"
         :class="{ active: theme === true }"
         @click="theme = true"
