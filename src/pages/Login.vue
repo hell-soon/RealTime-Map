@@ -19,7 +19,7 @@ function Auth() {
     })
   }
 
-  if (login.value === 'admin' && password.value === '123456') {
+  if (login.value === 'admin' && password.value === 'adminadmin') {
     user.login()
     router.push('/')
   }
@@ -56,7 +56,7 @@ function Auth() {
         <q-input
           v-model="password"
           filled
-          label="Password -- 123456"
+          label="Password -- adminadmin"
           type="password"
           lazy-rules
           :rules="[

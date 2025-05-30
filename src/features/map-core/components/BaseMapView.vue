@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import type { LngLat, YMap } from '@yandex/ymaps3-types'
 // import type { PropType } from 'vue'
-import { shallowRef, watch } from 'vue'
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
   YandexMapDefaultMarker,
   YandexMapDefaultSchemeLayer,
 } from 'vue-yandex-maps'
-
-interface Props {
-  centerCoordinates: LngLat | null
-  zoomLevel?: number
-  showUserMarker?: boolean
-  userMarkerSettings?: object
-}
 
 const props = withDefaults(defineProps<Props>(), {
   zoomLevel: 13,
@@ -25,6 +17,15 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   (e: 'mapReady', mapInstance: YMap): void
 }>()
+
+const $q = useQuasar()
+
+interface Props {
+  centerCoordinates: LngLat | null
+  zoomLevel?: number
+  showUserMarker?: boolean
+  userMarkerSettings?: object
+}
 
 const mapInstance = shallowRef<null | YMap>(null)
 
@@ -48,11 +49,15 @@ watch(mapInstance, (newMap) => {
         center: centerCoordinates,
         zoom: props.zoomLevel,
       },
+      theme: $q.dark.mode ? 'dark' : 'light',
     }"
     width="100%"
     height="100%"
   >
-    <YandexMapDefaultSchemeLayer />
+    <YandexMapDefaultSchemeLayer
+      :settings="{
+      }"
+    />
     <YandexMapDefaultFeaturesLayer />
 
     <YandexMapDefaultMarker
