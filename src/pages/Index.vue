@@ -18,7 +18,7 @@ function handleMapReady(map: YMap) {
       v-if="isLoadingGeolocation || geolocationError"
       :is-loading="isLoadingGeolocation"
       :error="geolocationError"
-      class="absolute-center z-top"
+      class="absolute-center"
     />
     <BaseMapView
       v-if="!isLoadingGeolocation && !geolocationError && userPosition"

@@ -5,5 +5,5 @@ export const frameworkConfig: QuasarFrameworkConfiguration = {
   config: {},
   // iconSet: 'material-icons',
   // lang: 'en-US',
-  plugins: [],
+  plugins: ['Notify'],
 }

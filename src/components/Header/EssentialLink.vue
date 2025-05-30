@@ -14,17 +14,14 @@ withDefaults(defineProps<EssentialLinkProps>(), {
 </script>
 
 <template>
-  <q-btn
-    flat
-    align="left"
-    class="full-width"
+  <q-item
     clickable
     :to="link"
+    class="menu-item"
+    active-class="bg-secondary text-white"
+    exact
   >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+    <q-item-section avatar>
       <q-icon :name="icon" />
     </q-item-section>
 
@@ -34,5 +31,16 @@ withDefaults(defineProps<EssentialLinkProps>(), {
         {{ caption }}
       </q-item-label>
     </q-item-section>
-  </q-btn>
+  </q-item>
 </template>
+
+<style scoped>
+.menu-item {
+  border-radius: 8px;
+  margin: 4px 8px;
+  transition: background-color 0.2s;
+}
+.menu-item:hover {
+  background-color: #f0f0f0;
+}
+</style>
