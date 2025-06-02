@@ -5,6 +5,10 @@ import { useDialogStore } from 'src/stores/dialog'
 
 const $q = useQuasar()
 
+if (window.localStorage.getItem('theme')) {
+  $q.dark.set(window.localStorage.getItem('theme') === 'auto' ? 'auto' : window.localStorage.getItem('theme') !== 'false')
+}
+
 const dialog = useDialogStore()
 $q.addressbarColor.set('#1976D2')
 </script>
@@ -17,7 +21,10 @@ $q.addressbarColor.set('#1976D2')
     </q-page-container>
 
     <q-dialog v-model="dialog.show">
-      <component :is="dialog.component" v-bind="dialog.props" />
+      <component
+        :is="dialog.component"
+        v-bind="dialog.props"
+      />
     </q-dialog>
   </q-layout>
 </template>

@@ -1,10 +1,24 @@
 <script setup lang="ts">
 const $q = useQuasar()
 
-const theme = ref<'auto' | false | true>($q.dark.mode)
+type ThemeValue = 'auto' | false | true
+
+const storedTheme = window.localStorage.getItem('theme')
+
+const initialTheme: ThemeValue
+  = storedTheme === 'auto'
+    ? 'auto'
+    : storedTheme === 'true'
+      ? true
+      : storedTheme === 'false'
+        ? false
+        : $q.dark.mode
+
+const theme = ref<ThemeValue>(initialTheme)
 
 watch(theme, (val) => {
   $q.dark.set(val)
+  window.localStorage.setItem('theme', String(val))
 })
 
 const index = computed(() => {
