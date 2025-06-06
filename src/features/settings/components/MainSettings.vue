@@ -68,45 +68,62 @@ const index = computed(() => {
   </q-card>
 </template>
 
-<style>
-.theme-toggle-card {
-  width: 100%;
-  max-width: 340px;
-  margin: auto;
-  padding: 8px;
-}
+<style lang="scss">
+.theme-toggle {
+  &-card {
+    width: 100%;
+    max-width: 340px;
+    margin: auto;
+    padding: 8px;
 
-.theme-toggle-container {
-  display: flex;
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  background: transparent;
-}
+    @media screen and (max-width: 340px) {
+      .q-btn {
+        &__content {
+          .on-left {
+            margin: 0;
+          }
 
-.theme-toggle-btn {
-  flex: 1;
-  z-index: 1;
-  transition: color 0.3s ease;
-  justify-content: center;
-  font-weight: 500;
-  color: var(--q-primary);
-}
+          span {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
 
-.theme-toggle-btn.active {
-  color: white;
-  font-weight: bold;
-}
+  &-container {
+    display: flex;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: transparent;
+  }
 
-.theme-toggle-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 33.3333%;
-  height: 100%;
-  background-color: #1976d2;
-  border-radius: 0;
-  transition: transform 0.3s ease;
-  z-index: 0;
+  &-btn {
+    flex: 1;
+    z-index: 1;
+    transition: color 0.3s ease;
+    justify-content: center;
+    font-weight: 500;
+    color: var(--q-primary);
+    width: 33%;
+
+    &.active {
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  &-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 33.3333%;
+    height: 100%;
+    background-color: #1976d2;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+    z-index: 0;
+  }
 }
 </style>

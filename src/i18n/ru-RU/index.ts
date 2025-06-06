@@ -10,7 +10,7 @@ export default {
     },
     chat: {
       title: 'Чат',
-      caption: 'Личные даты',
+      caption: 'Личные чаты',
     },
   },
 
