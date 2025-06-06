@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { LngLat, YMap } from '@yandex/ymaps3-types'
+import MapMarker from 'src/components/Ui/MapMarker.vue'
+
 import {
   YandexMap,
   YandexMapDefaultFeaturesLayer,
@@ -65,6 +67,7 @@ function onMapZoomChange(event: any) {
         center,
         zoom,
       },
+      behaviors: ['mouseRotate', 'pinchRotate'],
       theme: $q.dark.mode ? 'dark' : 'light',
     }"
     width="100%"
@@ -80,6 +83,18 @@ function onMapZoomChange(event: any) {
         ...props.userMarkerSettings,
       }"
     />
+
+    <MapMarker
+      :coordinates="centerCoordinates"
+    />
+    <!-- <YandexMapDefaultMarker
+      v-if="props.showUserMarker"
+      :settings="{
+        coordinates: defaultMarker ? defaultMarker.coordinates : centerCoordinates,
+        draggable: true,
+        onDragMove,
+      }"
+    /> -->
 
     <slot />
 
