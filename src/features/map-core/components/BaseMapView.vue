@@ -67,7 +67,7 @@ function onMapZoomChange(event: any) {
         center,
         zoom,
       },
-      behaviors: ['mouseRotate', 'pinchRotate'],
+      behaviors: ['drag', 'magnifier', 'scrollZoom'],
       theme: $q.dark.mode ? 'dark' : 'light',
     }"
     width="100%"
