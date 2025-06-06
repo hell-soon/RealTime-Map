@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import Header from 'components/Header/Index.vue'
 import { useQuasar } from 'quasar'
+import { useTheme } from 'src/features/settings/composables/useInitialTheme'
 import { useDialogStore } from 'src/stores/dialog'
 
 const $q = useQuasar()
-
-if (window.localStorage.getItem('theme')) {
-  $q.dark.set(window.localStorage.getItem('theme') === 'auto' ? 'auto' : window.localStorage.getItem('theme') !== 'false')
-}
-
 const dialog = useDialogStore()
+
+useTheme()
+
 $q.addressbarColor.set('#1976D2')
 </script>
 
