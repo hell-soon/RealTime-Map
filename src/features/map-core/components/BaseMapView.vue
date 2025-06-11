@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { LngLat, YMap } from '@yandex/ymaps3-types'
-import MapMarker from 'src/components/Ui/MapMarker.vue'
 
 import {
   YandexMap,
@@ -82,21 +81,7 @@ function onMapZoomChange(event: any) {
         ...props.userMarkerSettings,
       }"
     />
-
-    <MapMarker
-      :coordinates="centerCoordinates"
-    />
-    <!-- <YandexMapDefaultMarker
-      v-if="props.showUserMarker"
-      :settings="{
-        coordinates: defaultMarker ? defaultMarker.coordinates : centerCoordinates,
-        draggable: true,
-        onDragMove,
-      }"
-    /> -->
-
     <slot />
-
     <YandexMapListener
       :settings="{
         onUpdate: onMapZoomChange,
