@@ -10,7 +10,6 @@ defineProps<Props>()
 
 <template>
   <q-card>
-    {{ error }}
     <ThemeToggle />
   </q-card>
 </template>

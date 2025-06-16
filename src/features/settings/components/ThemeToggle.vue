@@ -5,7 +5,7 @@ const { theme, themeIndex } = useTheme()
 </script>
 
 <template>
-  <q-card flat bordered class="theme-toggle-card">
+  <div class="theme-toggle-card">
     <div class="theme-toggle-container">
       <div
         class="theme-toggle-background"
@@ -45,7 +45,7 @@ const { theme, themeIndex } = useTheme()
         @click="theme = true"
       />
     </div>
-  </q-card>
+  </div>
 </template>
 
 <style lang="scss">
@@ -74,7 +74,7 @@ const { theme, themeIndex } = useTheme()
   &-container {
     display: flex;
     position: relative;
-    border-radius: 12px;
+    border-radius: 6cap;
     overflow: hidden;
     background: transparent;
   }
