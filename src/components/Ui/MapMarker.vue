@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { LngLat } from '@yandex/ymaps3-types'
+import MainSettings from 'src/features/settings/components/MainSettings.vue'
+import { useDialogStore } from 'src/stores/dialog'
 import { YandexMapMarker } from 'vue-yandex-maps'
 
 interface Media {
@@ -24,6 +26,7 @@ const emit = defineEmits<{
   (e: 'drag', currentCoordinates: LngLat): void
 }>()
 
+const dialog = useDialogStore()
 const currentCoordinates = ref<LngLat>([...props.coordinates])
 
 watch(() => props.coordinates, (newCoords) => {
@@ -41,6 +44,12 @@ function handleDrag(event: any) {
   emit('drag', currentCoords)
 }
 
+function clickPin() {
+  dialog.openDialog(MainSettings, {
+    isLoading: false,
+  })
+}
+
 onMounted(() => {
   if (props.coordinates) {
     currentCoordinates.value = [...props.coordinates]
@@ -54,6 +63,7 @@ onMounted(() => {
       coordinates: currentCoordinates,
       draggable: props.draggable,
     }"
+    @click="clickPin"
     @dragend="handleDragEnd"
     @drag="handleDrag"
   >
