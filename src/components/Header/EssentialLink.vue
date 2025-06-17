@@ -33,14 +33,3 @@ withDefaults(defineProps<EssentialLinkProps>(), {
     </q-item-section>
   </q-item>
 </template>
-
-<style scoped>
-.menu-item {
-  border-radius: 8px;
-  margin: 4px 8px;
-  transition: background-color 0.2s;
-}
-.menu-item:hover {
-  background-color: #f0f0f0;
-}
-</style>

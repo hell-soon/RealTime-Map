@@ -15,6 +15,7 @@ export default {
   },
 
   theme: {
+    title: 'Theme',
     auto: 'Auto',
     light: 'Light',
     dark: 'Dark',

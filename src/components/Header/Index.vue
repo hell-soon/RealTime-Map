@@ -48,20 +48,25 @@ function toggleLeftDrawer() {
       />
     </q-toolbar>
   </q-header>
+
   <q-drawer
     v-model="leftDrawerOpen"
     show-if-above
-    bordered
-    class="drawer-style column justify-between"
   >
+    <q-img src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+      <div class="absolute-bottom bg-transparent">
+        <q-avatar size="56px" class="q-mb-sm">
+          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+        </q-avatar>
+        <div
+          class="text-weight-bold"
+        >
+          Razvan Stoenescu
+        </div>
+        <div>@rstoenescu</div>
+      </div>
+    </q-img>
     <q-list>
-      <q-item-label
-        class="text-primary text-bold text-subtitle2 q-pa-sm"
-        header
-      >
-        {{ $t('menu.header') }}
-      </q-item-label>
-
       <EssentialLink
         v-for="link in linksList"
         :key="link.title"
@@ -69,7 +74,7 @@ function toggleLeftDrawer() {
       />
     </q-list>
 
-    <div class="q-pa-sm">
+    <div class="absolute-bottom q-pa-sm">
       <q-btn
         clickable
         flat

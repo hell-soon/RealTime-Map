@@ -1,25 +1,31 @@
-// Quasar SCSS (& Sass) Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+// Основные цвета
+$primary: #3b82f6;
+$secondary: #16a34a;
+$accent: #a855f7;
 
-// Check documentation for full list of Quasar variables
+// Цвета фона и текста
+$dark: #1e293b;
+$dark-page: #0f172a;
 
-// Your own variables (that are declared here) and Quasar's own
-// ones will be available out of the box in your .vue/.scss/.sass files
+// Семантические цвета
+$positive: #22c55e;
+$negative: #ef4444;
+$info: #0ea5e9;
+$warning: #f59e0b;
 
-// It's highly recommended to change the default colors
-// to match your app's branding.
-// Tip: Use the "Theme Builder" on Quasar's documentation website.
+// --- Цвета для текста ---
+$text-primary: #e2e8f0;
+$text-muted: #94a3b8;
+$text-link: #60a5fa;
 
-$primary   : #1976D2;
-$secondary : #26A69A;
-$accent    : #9C27B0;
+// --- Цвета для событий на карте ---
+$event-hot: #f43f5e;
+$event-new: #fcd34d;
+$event-special: #5eead4;
 
-$dark      : #1D1D1D;
-$dark-page : #121212;
+// --- Цвета для границ и разделителей ---
+$border-color: #334155;
 
-$positive  : #21BA45;
-$negative  : #C10015;
-$info      : #31CCEC;
-$warning   : #F2C037;
+.text-custom-muted {
+  color: $text-muted;
+}

@@ -34,7 +34,7 @@ function handleMapReady(map: YMap) {
         :coordinates="[44.041146, 56.269901]"
         :draggable="false"
         :media="{
-          icon: 'location_on',
+          photoUrl: 'https://avatars.githubusercontent.com/u/71484693?v=4',
         }"
       />
     </BaseMapView>

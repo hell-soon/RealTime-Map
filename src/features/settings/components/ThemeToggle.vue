@@ -6,6 +6,9 @@ const { theme, themeIndex } = useTheme()
 
 <template>
   <div class="theme-toggle-card">
+    <!-- <span class="text-h6">
+      {{ $t('theme.title') }}
+    </span> -->
     <div class="theme-toggle-container">
       <div
         class="theme-toggle-background"
@@ -74,7 +77,7 @@ const { theme, themeIndex } = useTheme()
   &-container {
     display: flex;
     position: relative;
-    border-radius: 6cap;
+    border-radius: 6px;
     overflow: hidden;
     background: transparent;
   }
