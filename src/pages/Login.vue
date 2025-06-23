@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserStore } from 'stores/user'
+import { useUserStore } from 'src/stores/user'
 import { useRouter } from 'vue-router'
 
 const $q = useQuasar()

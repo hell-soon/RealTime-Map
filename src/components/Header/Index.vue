@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { EssentialLinkProps } from 'src/components/Header/EssentialLink.vue'
 import EssentialLink from 'src/components/Header/EssentialLink.vue'
+import profileMini from 'src/features/autification/components/profileMini.vue'
 import MainSettings from 'src/features/settings/components/MainSettings.vue'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'
@@ -53,19 +54,7 @@ function toggleLeftDrawer() {
     v-model="leftDrawerOpen"
     show-if-above
   >
-    <q-img src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
-      <div class="absolute-bottom bg-transparent">
-        <q-avatar size="56px" class="q-mb-sm">
-          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-        </q-avatar>
-        <div
-          class="text-weight-bold"
-        >
-          Razvan Stoenescu
-        </div>
-        <div>@rstoenescu</div>
-      </div>
-    </q-img>
+    <profileMini />
     <q-list>
       <EssentialLink
         v-for="link in linksList"
