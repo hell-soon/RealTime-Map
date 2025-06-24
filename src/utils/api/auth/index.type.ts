@@ -11,11 +11,11 @@ export interface LoginPayload {
 export interface RegistrationPayload {
   email: string
   password: string
-  is_active: boolean
-  is_superuser: boolean
-  is_verified: boolean
   phone: string
   username: string
+  is_active?: boolean
+  is_superuser?: boolean
+  is_verified?: boolean
 }
 
 export interface IUser {
