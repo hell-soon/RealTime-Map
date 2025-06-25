@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useDialogStore } from 'src/stores/dialog'
+import { useI18n } from 'vue-i18n'
 import LoginModal from './LoginModal.vue'
 
 const dialog = useDialogStore()
+const { t } = useI18n()
 
 function openLogin() {
   dialog.openDialog(LoginModal)
@@ -23,10 +25,10 @@ function openLogin() {
 
       <q-item-section>
         <q-item-label class="text-weight-bold">
-          Войти
+          {{ t('auth.login') }}
         </q-item-label>
         <q-item-label caption class="text-grey-6">
-          Авторизация и регистрация
+          {{ t('auth.loginDescription') }}
         </q-item-label>
       </q-item-section>
     </q-item>

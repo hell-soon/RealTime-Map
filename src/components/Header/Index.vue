@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { EssentialLinkProps } from 'src/components/Header/EssentialLink.vue'
 import EssentialLink from 'src/components/Header/EssentialLink.vue'
-import profileMini from 'src/features/autification/components/profileMini.vue'
+import profileMini from 'src/features/authentication/components/profileMini.vue'
 import MainSettings from 'src/features/settings/components/MainSettings.vue'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'

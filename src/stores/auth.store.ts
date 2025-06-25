@@ -1,3 +1,4 @@
+// Импортируем ваши существующие типы
 import type { IUser, LoginPayload, RegistrationPayload } from 'src/utils/api/auth/index.type'
 import { defineStore } from 'pinia'
 import { authApi } from 'src/utils/api/auth'
@@ -14,11 +15,6 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
-    setUser(userData: IUser | null) {
-      this.user = userData
-      this.isAuthenticated = !!userData
-    },
-
     setToken(token: string) {
       localStorage.setItem('token', token)
     },
@@ -29,25 +25,45 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem('token')
     },
 
+    setUser(userData: IUser | null) {
+      this.user = userData
+      this.isAuthenticated = !!userData
+    },
+
     async login(payload: LoginPayload) {
       try {
         const response = await authApi.login(payload)
         this.setToken(response.access_token)
+        // После успешного логина, нужно получить данные пользователя
+        // await this.fetchUser();
       }
       catch (error) {
-        console.error('Login failed in store', error)
+        console.error('Login failed in store:', error)
+        throw error
       }
     },
 
     async registration(payload: RegistrationPayload) {
       try {
-        const response = await authApi.registration(payload)
-        this.setUser(response)
+        await authApi.registration(payload)
       }
       catch (error) {
-        console.error('Registration failed in store', error)
+        console.error('Registration failed in store:', error)
+        throw error
       }
     },
+
+    // Рекомендую добавить отдельное действие для получения данных о пользователе
+    // которое можно вызывать после логина или при загрузке приложения.
+    // async fetchUser() {
+    //   try {
+    //     const user = await userApi.getProfile();
+    //     this.setUser(user);
+    //   } catch (error) {
+    //     this.setUser(null);
+    //     this.removeToken();
+    //   }
+    // }
 
     async logout() {
       try {
@@ -59,8 +75,10 @@ export const useAuthStore = defineStore('auth', {
       }
       finally {
         this.setUser(null)
-        // this.router.push('/login'); // Перенаправление сделает навигационный хук
+        // this.router.push('/login');
       }
     },
   },
 })
+
+export type { LoginPayload, RegistrationPayload }
