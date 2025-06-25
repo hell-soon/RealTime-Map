@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAuthStore } from 'src/stores/auth.store'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'
 import LoginModal from './LoginModal.vue'
@@ -6,14 +7,25 @@ import LoginModal from './LoginModal.vue'
 const dialog = useDialogStore()
 const { t } = useI18n()
 
+watch(
+  () => useAuthStore().token,
+  () => {
+    useAuthStore().fetchUser()
+  },
+)
+
+if (useAuthStore().token)
+  useAuthStore().fetchUser()
+
 function openLogin() {
   dialog.openDialog(LoginModal)
 }
 </script>
 
 <template>
-  <div>
+  <div v-if="!useAuthStore().token">
     <q-item
+
       v-ripple
       clickable
       style="height: 70px;"
@@ -33,7 +45,10 @@ function openLogin() {
       </q-item-section>
     </q-item>
   </div>
-  <!-- <q-img src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+  <q-img
+    v-else
+    src="https://cdn.quasar.dev/img/material.png" style="height: 150px"
+  >
     <div class="absolute-bottom bg-transparent">
       <q-avatar size="56px" class="q-mb-sm">
         <img src="https://cdn.quasar.dev/img/boy-avatar.png">
@@ -41,9 +56,11 @@ function openLogin() {
       <div
         class="text-weight-bold"
       >
-        Razvan Stoenescu
+        {{ useAuthStore().user?.username }}
       </div>
-      <div>@rstoenescu</div>
+      <div>
+        {{ useAuthStore().user?.email }}
+      </div>
     </div>
-  </q-img> -->
+  </q-img>
 </template>

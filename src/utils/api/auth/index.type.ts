@@ -17,7 +17,3 @@ export interface RegistrationPayload {
   is_superuser?: boolean
   is_verified?: boolean
 }
-
-export interface IUser {
-
-}

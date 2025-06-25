@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { QForm } from 'quasar'
 import type { LoginPayload, RegistrationPayload } from 'src/stores/auth.store'
+import { QForm } from 'quasar'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuth } from '../composables/useAuth'

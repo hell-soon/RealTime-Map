@@ -1,31 +1,40 @@
-// Импортируем ваши существующие типы
-import type { IUser, LoginPayload, RegistrationPayload } from 'src/utils/api/auth/index.type'
+import type { LoginPayload, RegistrationPayload } from 'src/utils/api/auth/index.type'
+import type { User } from 'src/utils/api/user/index.type'
 import { defineStore } from 'pinia'
+import { useDialogStore } from 'src/stores/dialog'
 import { authApi } from 'src/utils/api/auth'
+import { userApi } from 'src/utils/api/user'
 
 interface AuthState {
-  user: IUser | null
+  user: User | null
   isAuthenticated: boolean
+  token: string | null
 }
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
     user: null,
     isAuthenticated: false,
+    token: localStorage.getItem('token') || null,
   }),
 
   actions: {
     setToken(token: string) {
       localStorage.setItem('token', token)
+      this.token = token
     },
     getToken() {
-      return localStorage.getItem('token')
+      if (this.token)
+        return this.token
+      this.token = localStorage.getItem('token')
+      return this.token
     },
     removeToken() {
       localStorage.removeItem('token')
+      this.token = null
     },
 
-    setUser(userData: IUser | null) {
+    setUser(userData: User | null) {
       this.user = userData
       this.isAuthenticated = !!userData
     },
@@ -34,8 +43,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await authApi.login(payload)
         this.setToken(response.access_token)
-        // После успешного логина, нужно получить данные пользователя
-        // await this.fetchUser();
+        await this.fetchUser()
       }
       catch (error) {
         console.error('Login failed in store:', error)
@@ -53,17 +61,18 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    // Рекомендую добавить отдельное действие для получения данных о пользователе
-    // которое можно вызывать после логина или при загрузке приложения.
-    // async fetchUser() {
-    //   try {
-    //     const user = await userApi.getProfile();
-    //     this.setUser(user);
-    //   } catch (error) {
-    //     this.setUser(null);
-    //     this.removeToken();
-    //   }
-    // }
+    async fetchUser() {
+      try {
+        const user = await userApi.getProfile()
+        this.setUser(user)
+        useDialogStore().closeDialog()
+      }
+      catch (error) {
+        console.error('Fetching user failed in store:', error)
+        this.setUser(null)
+        this.removeToken()
+      }
+    },
 
     async logout() {
       try {
