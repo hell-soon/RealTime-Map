@@ -6,4 +6,5 @@ export interface User {
   is_verified: boolean
   phone: string
   username: boolean
+  avatar?: string
 }

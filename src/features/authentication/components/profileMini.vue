@@ -7,6 +7,9 @@ import LoginModal from './LoginModal.vue'
 const dialog = useDialogStore()
 const { t } = useI18n()
 
+const API_BASE_URL = 'http://77.110.105.64/api/v1/media/'
+const AVATAR_PLACEHOLDER = 'https://cdn.quasar.dev/img/boy-avatar.png'
+
 watch(
   () => useAuthStore().token,
   () => {
@@ -51,7 +54,7 @@ function openLogin() {
   >
     <div class="absolute-bottom bg-transparent">
       <q-avatar size="56px" class="q-mb-sm">
-        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+        <img :src="`${API_BASE_URL}${useAuthStore().user?.avatar}` || AVATAR_PLACEHOLDER">
       </q-avatar>
       <div
         class="text-weight-bold"

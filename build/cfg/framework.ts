@@ -1,4 +1,3 @@
-// quasar-config-parts/framework.ts
 import type { QuasarFrameworkConfiguration } from '@quasar/app-vite/types/configuration/framework-conf'
 
 export const frameworkConfig: QuasarFrameworkConfiguration = {

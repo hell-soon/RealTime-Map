@@ -1,81 +1,80 @@
-import type { AxiosError, AxiosRequestConfig } from 'axios'
+import type { AxiosError, AxiosRequestConfig, Method } from 'axios'
+import type { ApiError, BackendErrorDetail } from './api.types'
 import { api } from 'boot/axios'
 import { Notify } from 'quasar'
 
-interface ApiError {
-  message: string
-  status?: number
-  details?: any
+export interface RequestConfig extends AxiosRequestConfig {
+  suppressErrorNotify?: boolean
 }
 
-function handleError(error: AxiosError): ApiError {
+function isBackendError(data: any): data is BackendErrorDetail {
+  return data && typeof data.message === 'string'
+}
+
+function handleError(error: AxiosError, config: RequestConfig): ApiError {
   const apiError: ApiError = {
     message: 'Произошла неизвестная ошибка',
-    status: error.response?.status as number,
+    status: error.response?.status,
   }
 
   if (error.response) {
-    console.error('API Response Error:', error.response.data)
-    apiError.message = (error.response.data as any)?.message || error.message
-    apiError.details = error.response.data
+    const errorData = error.response.data
+    apiError.details = errorData
+    if (isBackendError(errorData)) {
+      apiError.message = errorData.message
+    }
+    else {
+      apiError.message = error.message
+    }
   }
   else if (error.request) {
-    console.error('API No Response:', error.request)
     apiError.message = 'Сервер не отвечает. Проверьте подключение к сети.'
   }
   else {
-    console.error('API Request Setup Error:', error.message)
     apiError.message = error.message
   }
 
-  Notify.create({
-    type: 'negative',
-    message: apiError.message,
-    position: 'top',
-    timeout: 3000,
-  })
+  if (!config.suppressErrorNotify && apiError.status !== 401) {
+    Notify.create({
+      type: 'negative',
+      message: apiError.message,
+      position: 'top',
+      timeout: 3000,
+    })
+  }
 
   return apiError
 }
 
+async function request<T>(method: Method, url: string, config: RequestConfig = {}, data?: any): Promise<T> {
+  try {
+    const response = await api.request<T>({
+      method,
+      url,
+      data,
+      ...config,
+    })
+    return response.data
+  }
+  catch (error) {
+    throw handleError(error as AxiosError, config)
+  }
+}
+
 export const apiService = {
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await api.get<T>(url, config)
-      return response.data
-    }
-    catch (error) {
-      throw handleError(error as AxiosError)
-    }
+  get<T>(url: string, config?: RequestConfig): Promise<T> {
+    return request<T>('GET', url, config)
   },
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await api.post<T>(url, data, config)
-      return response.data
-    }
-    catch (error) {
-      throw handleError(error as AxiosError)
-    }
+  post<T>(url: string, data?: any, config?: RequestConfig): Promise<T> {
+    return request<T>('POST', url, config, data)
   },
 
-  async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await api.put<T>(url, data, config)
-      return response.data
-    }
-    catch (error) {
-      throw handleError(error as AxiosError)
-    }
+  put<T>(url: string, data?: any, config?: RequestConfig): Promise<T> {
+    return request<T>('PUT', url, config, data)
   },
 
-  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await api.delete<T>(url, config)
-      return response.data
-    }
-    catch (error) {
-      throw handleError(error as AxiosError)
-    }
+  delete<T>(url: string, config?: RequestConfig): Promise<T> {
+    return request<T>('DELETE', url, config)
   },
 }

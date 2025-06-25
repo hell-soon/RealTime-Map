@@ -1,7 +1,7 @@
 import type { LoginPayload, RegistrationPayload } from 'src/utils/api/auth/index.type'
 import type { User } from 'src/utils/api/user/index.type'
+import { api } from 'boot/axios'
 import { defineStore } from 'pinia'
-import { useDialogStore } from 'src/stores/dialog'
 import { authApi } from 'src/utils/api/auth'
 import { userApi } from 'src/utils/api/user'
 
@@ -22,6 +22,7 @@ export const useAuthStore = defineStore('auth', {
     setToken(token: string) {
       localStorage.setItem('token', token)
       this.token = token
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
     },
     getToken() {
       if (this.token)
@@ -32,6 +33,7 @@ export const useAuthStore = defineStore('auth', {
     removeToken() {
       localStorage.removeItem('token')
       this.token = null
+      delete api.defaults.headers.common.Authorization
     },
 
     setUser(userData: User | null) {
@@ -40,51 +42,37 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async login(payload: LoginPayload) {
-      try {
-        const response = await authApi.login(payload)
-        this.setToken(response.access_token)
-        await this.fetchUser()
-      }
-      catch (error) {
-        console.error('Login failed in store:', error)
-        throw error
-      }
+      const response = await authApi.login(payload)
+      this.setToken(response.access_token)
+      await this.fetchUser()
     },
 
     async registration(payload: RegistrationPayload) {
-      try {
-        await authApi.registration(payload)
-      }
-      catch (error) {
-        console.error('Registration failed in store:', error)
-        throw error
-      }
+      await authApi.registration(payload)
     },
 
     async fetchUser() {
       try {
         const user = await userApi.getProfile()
         this.setUser(user)
-        useDialogStore().closeDialog()
       }
       catch (error) {
         console.error('Fetching user failed in store:', error)
-        this.setUser(null)
-        this.removeToken()
+        this.logout()
+        throw error
       }
     },
 
     async logout() {
       try {
         await authApi.logout
-        this.removeToken()
       }
       catch (error) {
         console.error('Logout request failed', error)
       }
       finally {
         this.setUser(null)
-        // this.router.push('/login');
+        this.removeToken()
       }
     },
   },

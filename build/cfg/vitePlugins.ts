@@ -1,10 +1,9 @@
 import type { PluginEntry } from '@quasar/app-vite/types/configuration/build'
-// quasar-config-parts/vitePlugins.js
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import AutoImport from 'unplugin-auto-import/vite'
 
-export default function (ctx: any): PluginEntry[] { // ctx может быть нужен для ssr в i18n
+export default function (ctx: any): PluginEntry[] {
   return [
     ['@intlify/unplugin-vue-i18n/vite', {
       ssr: ctx.modeName === 'ssr',

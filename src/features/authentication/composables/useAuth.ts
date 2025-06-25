@@ -4,30 +4,15 @@ import { useAuthStore } from 'src/stores/auth.store'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-interface ApiError {
-  response?: {
-    data?: {
-      message?: string
-    }
-  }
-}
-
-function isApiError(error: unknown): error is ApiError {
-  return typeof error === 'object' && error !== null && 'response' in error
-}
-
 export function useAuth() {
   const authStore = useAuthStore()
   const $q = useQuasar()
   const { t } = useI18n()
 
   const isLoading = ref(false)
-  const serverError = ref<string | null>(null)
 
   const submit = async (action: 'login' | 'register', payload: LoginPayload | RegistrationPayload) => {
     isLoading.value = true
-    serverError.value = null
-    let success = false
 
     try {
       if (action === 'login') {
@@ -41,27 +26,19 @@ export function useAuth() {
           icon: 'check_circle',
         })
       }
-      success = true
+      return true
     }
     catch (error) {
-      if (isApiError(error)) {
-        serverError.value = error.response?.data?.message || t('errors.generic')
-      }
-      else {
-        serverError.value = t('errors.generic')
-      }
-      success = false
+      console.error(error)
+      return false
     }
     finally {
       isLoading.value = false
     }
-
-    return success
   }
 
   return {
     isLoading,
-    serverError,
     submit,
   }
 }

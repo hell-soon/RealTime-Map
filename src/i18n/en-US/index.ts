@@ -45,7 +45,7 @@ export default {
   validation: {
     required: 'This field is required',
     minLength: 'Minimum 6 characters',
-    invalidEmail: '',
+    invalidEmail: 'Please enter a valid email address',
   },
 
   notify: {

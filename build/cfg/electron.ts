@@ -1,4 +1,3 @@
-// quasar-config-parts/electron.ts
 import type { QuasarElectronConfiguration } from '@quasar/app-vite/types/configuration/electron-conf'
 
 export function getElectronConfig(_ctx: any): QuasarElectronConfiguration {

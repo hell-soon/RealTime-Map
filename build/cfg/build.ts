@@ -1,5 +1,4 @@
 import type { QuasarBuildConfiguration } from '@quasar/app-vite/types/configuration/build.js'
-// quasar-config-parts/build.js
 import getVitePlugins from './vitePlugins'
 
 export function getBuildConfig(_ctx: any): QuasarBuildConfiguration {

@@ -39,7 +39,6 @@ function submit() {
       v-model="formData.phone"
       :label="t('form.phone')"
       mask="+7 (###) ###-##-##"
-      unmasked-value
       lazy-rules
       :rules="[requiredRule]"
     />

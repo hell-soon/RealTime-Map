@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { LoginPayload, RegistrationPayload } from 'src/stores/auth.store'
 import { QForm } from 'quasar'
+import { useDialogStore } from 'src/stores/dialog'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuth } from '../composables/useAuth'
@@ -9,8 +10,9 @@ import RegistrationForm from './RegistrationForm.vue'
 
 const emit = defineEmits(['success'])
 const { t } = useI18n()
+const dialog = useDialogStore()
 
-const { isLoading, serverError, submit } = useAuth()
+const { isLoading, submit } = useAuth()
 
 const formRef = ref<QForm | null>(null)
 const isRegisterMode = ref(false)
@@ -24,7 +26,6 @@ const title = computed(() =>
 function toggleMode() {
   isRegisterMode.value = !isRegisterMode.value
   formRef.value?.resetValidation()
-  serverError.value = null
 }
 
 async function onSubmit(payload: LoginPayload | RegistrationPayload) {
@@ -40,6 +41,7 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
       toggleMode()
     }
     else {
+      dialog.closeDialog()
       emit('success')
     }
   }
@@ -69,15 +71,6 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
       class="full-width q-mt-md text-cyan-2"
       @click="toggleMode"
     />
-
-    <transition name="fade-form">
-      <q-banner v-if="serverError" rounded class="bg-red-9 text-white q-mt-md">
-        <template #avatar>
-          <q-icon name="warning" />
-        </template>
-        {{ serverError }}
-      </q-banner>
-    </transition>
   </div>
 </template>
 
