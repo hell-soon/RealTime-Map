@@ -6,6 +6,7 @@ export function getBootConfig(_ctx: any): QuasarBootConfiguration {
     'axios',
     'yandex',
     'auth',
+    'websocket',
     'addressbar-color',
   ]
 }
