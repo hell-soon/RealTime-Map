@@ -6,19 +6,19 @@ import LoginModal from './LoginModal.vue'
 
 const dialog = useDialogStore()
 const { t } = useI18n()
+const authStore = useAuthStore()
 
-const API_BASE_URL = 'http://77.110.105.64/api/v1/media/'
+const API_BASE_URL = '/api/media/'
 const AVATAR_PLACEHOLDER = 'https://cdn.quasar.dev/img/boy-avatar.png'
 
-watch(
-  () => useAuthStore().token,
-  () => {
-    useAuthStore().fetchUser()
-  },
-)
-
-if (useAuthStore().token)
-  useAuthStore().fetchUser()
+if (authStore.token) {
+  authStore.fetchUser()
+}
+watch(() => authStore.token, (newToken) => {
+  if (newToken) {
+    authStore.fetchUser()
+  }
+}, { immediate: true })
 
 function openLogin() {
   dialog.openDialog(LoginModal)
@@ -26,7 +26,7 @@ function openLogin() {
 </script>
 
 <template>
-  <div v-if="!useAuthStore().token">
+  <div v-if="!authStore.token">
     <q-item
 
       v-ripple
@@ -54,15 +54,15 @@ function openLogin() {
   >
     <div class="absolute-bottom bg-transparent">
       <q-avatar size="56px" class="q-mb-sm">
-        <img :src="`${API_BASE_URL}${useAuthStore().user?.avatar}` || AVATAR_PLACEHOLDER">
+        <img :src="`${API_BASE_URL}${authStore.user?.avatar}` || AVATAR_PLACEHOLDER">
       </q-avatar>
       <div
         class="text-weight-bold"
       >
-        {{ useAuthStore().user?.username }}
+        {{ authStore.user?.username }}
       </div>
       <div>
-        {{ useAuthStore().user?.email }}
+        {{ authStore.user?.email }}
       </div>
     </div>
   </q-img>
