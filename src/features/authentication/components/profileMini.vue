@@ -11,15 +11,6 @@ const authStore = useAuthStore()
 const API_BASE_URL = '/api/media/'
 const AVATAR_PLACEHOLDER = 'https://cdn.quasar.dev/img/boy-avatar.png'
 
-if (authStore.token) {
-  authStore.fetchUser()
-}
-watch(() => authStore.token, (newToken) => {
-  if (newToken) {
-    authStore.fetchUser()
-  }
-}, { immediate: true })
-
 function openLogin() {
   dialog.openDialog(LoginModal)
 }
