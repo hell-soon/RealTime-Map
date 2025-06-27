@@ -21,7 +21,7 @@ export function useWebSocket() {
 
     const authStore = useAuthStore()
 
-    const WEBSOCKET_URL = 'http://77.110.105.64:80/api/v1'
+    const WEBSOCKET_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1/'
 
     socket = io(WEBSOCKET_URL, {
       auth: {
