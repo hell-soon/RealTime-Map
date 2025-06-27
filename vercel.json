@@ -5,8 +5,8 @@
       "destination": "/index.html"
     },
     {
-      "source": "/api/media/:path*",
-      "destination": "http://77.110.105.64/api/v1/media/:path*"
+      "source": "/api/v1/:path*",
+      "destination": "http://77.110.105.64/api/v1/:path*"
     }
   ]
 }

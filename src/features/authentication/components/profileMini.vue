@@ -8,7 +8,7 @@ const dialog = useDialogStore()
 const { t } = useI18n()
 const authStore = useAuthStore()
 
-const API_BASE_URL = '/api/media/'
+const API_BASE_URL = '/api/v1/media/'
 const AVATAR_PLACEHOLDER = 'https://cdn.quasar.dev/img/boy-avatar.png'
 
 function openLogin() {
