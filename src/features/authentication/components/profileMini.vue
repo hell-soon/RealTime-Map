@@ -45,7 +45,7 @@ function openLogin() {
   >
     <div class="absolute-bottom bg-transparent">
       <q-avatar size="56px" class="q-mb-sm">
-        <img :src="`${API_BASE_URL}media/${authStore.user?.avatar}` || AVATAR_PLACEHOLDER">
+        <img :src="`${API_BASE_URL}${authStore.user?.avatar}` || AVATAR_PLACEHOLDER">
       </q-avatar>
       <div
         class="text-weight-bold"
