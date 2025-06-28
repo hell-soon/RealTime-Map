@@ -21,10 +21,10 @@ export function useWebSocket() {
       console.warn('[WebSocket] Already connected.')
       return
     }
-    if (!authStore.token) {
-      console.error('[WebSocket] Connection attempt without authentication token.')
-      return
-    }
+    // if (!authStore.token) {
+    //   console.error('[WebSocket] Connection attempt without authentication token.')
+    //   return
+    // }
 
     const WEBSOCKET_URL = import.meta.env.VITE_WS_URL
 
@@ -37,9 +37,9 @@ export function useWebSocket() {
     console.warn(`[WebSocket] Connecting to ${fullUrl}`)
 
     socket = io(fullUrl, {
-      auth: {
-        token: authStore.token,
-      },
+      // auth: {
+      //   token: authStore.token,
+      // },
       autoConnect: false,
       transports: ['websocket', 'polling'],
     })
