@@ -1,11 +1,11 @@
 import { boot } from 'quasar/wrappers'
-// import { useWebSocket } from 'src/composables/useWebSocket'
+import { useWebSocket } from 'src/composables/useWebSocket'
 // import { useAuthStore } from 'src/stores/auth.store'
 
 export default boot(() => {
-  // const { connect } = useWebSocket()
+  const { connect } = useWebSocket()
   // const authStore = useAuthStore()
-  // connect('/marks')
+  connect('/marks')
   // watch(() => authStore.token, (newToken, oldToken) => {
   //   if (newToken) {
   //     connect()

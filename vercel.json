@@ -3,10 +3,6 @@
     {
       "source": "/((?!api/|_next/|static/|public/|favicon.ico|sw.js|.*\\..*).*)",
       "destination": "/index.html"
-    },
-    {
-      "source": "/api/v1/:path*",
-      "destination": "http://77.110.105.64/api/v1/:path*"
     }
   ]
 }
