@@ -67,6 +67,10 @@ function onMapZoomChange(event: any) {
         zoom,
       },
       theme: $q.dark.mode ? 'dark' : 'light',
+      zoomRange: {
+        min: 13,
+        max: 16,
+      },
     }"
     width="100%"
     height="100%"
