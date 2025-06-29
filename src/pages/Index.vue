@@ -4,6 +4,7 @@ import MapMarker from 'src/components/Ui/MapMarker.vue'
 import GeolocationFeedback from 'src/features/geolocation/components/GeolocationFeedback.vue'
 import { useGeolocation } from 'src/features/geolocation/composables/useGeolocation'
 import BaseMapView from 'src/features/map-core/components/BaseMapView.vue'
+import MarksLayer from 'src/features/marks/components/MarksLayer.vue'
 
 const { userPosition, error: geolocationError, isLoading: isLoadingGeolocation } = useGeolocation()
 const mapApi = shallowRef<null | YMap>(null)
@@ -30,6 +31,9 @@ function handleMapReady(map: YMap) {
       class="col"
       @map-ready="handleMapReady"
     >
+      <MarksLayer
+        :coordinates="userPosition"
+      />
       <MapMarker
         :coordinates="[44.041146, 56.269901]"
         :draggable="false"

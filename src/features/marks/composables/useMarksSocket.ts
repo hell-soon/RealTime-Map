@@ -1,4 +1,4 @@
-import type { Mark } from 'src/types/socket-events'
+import type { Mark, MarksRequestPayload } from 'src/types/socket-events'
 import { useWebSocket } from 'src/composables/useWebSocket'
 
 const MARKS_NAMESPACE = '/marks'
@@ -7,25 +7,31 @@ export function useMarksSocket() {
   const { on, emit, getSocketState } = useWebSocket()
 
   const marks = ref<Mark[]>([])
-  const socketState = getSocketState(MARKS_NAMESPACE)
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
 
-  const isLoading = computed(() => !socketState?.isConnected)
+  const fetchMarks = (params: MarksRequestPayload) => {
+    const socketState = getSocketState(MARKS_NAMESPACE)
+    if (!socketState?.isConnected) {
+      const errorMessage = '[Marks] Невозможно запросить метки: сокет не подключен.'
+      console.error(errorMessage)
+      error.value = errorMessage
+      return
+    }
 
-  const handleAllMarks = (initialMarks: Mark[]) => {
-    marks.value = initialMarks
+    isLoading.value = true
+    error.value = null
+    emit(MARKS_NAMESPACE, 'marks:message', params)
   }
-  const handleMarkCreated = (newMark: Mark) => {
-    marks.value.push(newMark)
+
+  const handleGetMarks = (receivedMarks: Mark[]) => {
+    marks.value = receivedMarks
+    isLoading.value = false
   }
 
-  const unsubscribes: (() => void)[] = []
-
-  onMounted(() => {
-    emit(MARKS_NAMESPACE, 'marks:get')
-
-    unsubscribes.push(on(MARKS_NAMESPACE, 'marks:all', handleAllMarks))
-    unsubscribes.push(on(MARKS_NAMESPACE, 'mark:created', handleMarkCreated))
-  })
+  const unsubscribes = [
+    on(MARKS_NAMESPACE, 'marks:get', handleGetMarks),
+  ]
 
   onUnmounted(() => {
     unsubscribes.forEach(fn => fn())
@@ -34,5 +40,7 @@ export function useMarksSocket() {
   return {
     marks: readonly(marks),
     isLoading: readonly(isLoading),
+    error: readonly(error),
+    fetchMarks,
   }
 }

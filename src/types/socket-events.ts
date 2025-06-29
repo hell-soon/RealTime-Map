@@ -3,12 +3,21 @@
 // Описываем основные сущности, которые передаются по сокету.
 // =================================================================
 
+import type { LngLat } from '@yandex/ymaps3-types'
+
 export interface Mark {
   id: string
-  name: string
-  lat: number
-  lng: number
-  photoUrl: string
+  mark_name: string
+  start_at: string
+  end_at: string
+  is_ended: boolean
+  duration: number
+  owner_id: number
+  geom: {
+    type: string
+    coordinates: LngLat
+  }
+  photo: string
 }
 
 export interface Message {
@@ -16,6 +25,16 @@ export interface Message {
   text: string
   senderId: string
   timestamp: string
+}
+
+export interface MarksRequestPayload {
+  longitude: number
+  latitude: number
+  radius?: number
+  srid?: number
+  date?: string
+  duration?: number | null
+  show_ended?: boolean | null
 }
 
 // =================================================================
@@ -27,7 +46,7 @@ export interface Message {
 
 export interface ClientToServerEvents {
   // --- Публичные события (неймспейс /marks) ---
-  'marks:get': () => void
+  'marks:message': (payload: MarksRequestPayload) => void
 
   // --- Приватные события (неймспейс /messages) ---
   'message:send': (payload: { text: string }) => void
@@ -45,10 +64,10 @@ export interface ServerToClientEvents {
   'connect_error': (error: Error) => void
 
   // --- События для меток (неймспейс /marks) ---
-  'marks:all': (payload: Mark[]) => void
-  'mark:created': (payload: Mark) => void
-  'mark:updated': (payload: Partial<Mark> & { id: string }) => void
-  'mark:deleted': (payload: { id: string }) => void
+  'marks:get': (payload: Mark[]) => void
+  'marks:created': (payload: Mark) => void
+  'marks:updated': (payload: Partial<Mark> & { id: string }) => void
+  'marks:deleted': (payload: { id: string }) => void
 
   // --- События для сообщений (неймспейс /messages) ---
   'message:new': (payload: Message) => void

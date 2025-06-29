@@ -1,19 +1,30 @@
 <script setup lang="ts">
+import type { LngLat } from '@yandex/ymaps3-types'
 import MapMarker from 'src/components/Ui/MapMarker.vue'
 import { useMarksSocket } from '../composables/useMarksSocket'
 
-const { marks } = useMarksSocket()
+const props = defineProps<{
+  coordinates: LngLat
+}>()
+
+const { marks, fetchMarks } = useMarksSocket()
+
+if (props.coordinates) {
+  const [longitude, latitude] = props.coordinates
+  fetchMarks({
+    longitude,
+    latitude,
+    radius: 500,
+  })
+}
 </script>
 
 <template>
   <MapMarker
     v-for="mark in marks"
     :key="mark.id"
-    :coordinates="[mark.lng, mark.lat]"
+    :coordinates="mark.geom.coordinates as any"
     :draggable="false"
-    :media="{
-      photoUrl: mark.photoUrl,
-    }"
-    :title="mark.name"
+    :title="mark.mark_name"
   />
 </template>
