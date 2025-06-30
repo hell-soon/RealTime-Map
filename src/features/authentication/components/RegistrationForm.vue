@@ -17,7 +17,6 @@ const { requiredRule, emailRule, minLengthRule } = useValidationRules()
 
 const formData = reactive<RegistrationPayload>({
   username: '',
-  phone: '',
   email: '',
   password: '',
 })
@@ -32,13 +31,6 @@ function submit() {
     <q-input
       v-model="formData.username"
       :label="t('form.username')"
-      lazy-rules
-      :rules="[requiredRule]"
-    />
-    <q-input
-      v-model="formData.phone"
-      :label="t('form.phone')"
-      mask="+7 (###) ###-##-##"
       lazy-rules
       :rules="[requiredRule]"
     />

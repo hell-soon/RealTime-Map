@@ -8,11 +8,8 @@ export interface LoginPayload {
   password: string
 }
 
-export interface RegistrationPayload {
+export interface RegistrationPayload extends LoginPayload {
   email: string
-  password: string
-  phone: string
-  username: string
   is_active?: boolean
   is_superuser?: boolean
   is_verified?: boolean

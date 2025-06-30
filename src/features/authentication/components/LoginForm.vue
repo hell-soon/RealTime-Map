@@ -13,7 +13,7 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const { requiredRule, emailRule } = useValidationRules()
+const { requiredRule } = useValidationRules()
 
 const formData = reactive<LoginPayload>({
   username: '',
@@ -29,10 +29,9 @@ function submit() {
   <div class="q-gutter-y-md">
     <q-input
       v-model="formData.username"
-      :label="t('form.email')"
-      type="email"
+      :label="t('form.username')"
       lazy-rules
-      :rules="[requiredRule, emailRule]"
+      :rules="[requiredRule]"
     />
     <q-input
       v-model="formData.password"
