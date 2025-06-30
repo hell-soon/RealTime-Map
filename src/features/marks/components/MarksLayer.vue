@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { LngLat } from '@yandex/ymaps3-types'
-import type { Mark } from '../types/idnex'
 import MapMarker from 'src/components/Ui/MapMarker.vue'
 import { useDialogStore } from 'src/stores/dialog'
 import { useMarksSocket } from '../composables/useMarksSocket'
@@ -26,8 +25,8 @@ const MarkDetailsSheet = defineAsyncComponent(
   () => import('./MarkDetailsSheet.vue'),
 )
 
-function handleMarkClick(mark: Mark) {
-  dialogStore.openDialog(MarkDetailsSheet, { mark })
+function handleMarkClick(markId: string | number) {
+  dialogStore.openDialog(MarkDetailsSheet, { markId })
 }
 </script>
 
@@ -41,6 +40,6 @@ function handleMarkClick(mark: Mark) {
     :media="{
       photoUrl: API_BASE_URL + mark.photo[0]!,
     }"
-    @click="handleMarkClick(mark as any)"
+    @click="handleMarkClick(mark.id)"
   />
 </template>

@@ -1,5 +1,5 @@
 import type { MarksRequestPayload } from 'src/types/socket-events'
-import type { Mark } from '../types/idnex'
+import type { Mark } from '../types'
 import { useWebSocket } from 'src/composables/useWebSocket'
 
 const MARKS_NAMESPACE = '/marks'

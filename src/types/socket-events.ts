@@ -3,7 +3,7 @@
 // Описываем основные сущности, которые передаются по сокету.
 // =================================================================
 
-import type { Mark } from 'src/features/marks/types/idnex'
+import type { Mark } from 'src/features/marks/types'
 
 export interface Message {
   id: string
