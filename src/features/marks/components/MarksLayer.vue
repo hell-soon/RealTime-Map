@@ -7,6 +7,7 @@ const props = defineProps<{
   coordinates: LngLat
 }>()
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 const { marks, fetchMarks } = useMarksSocket()
 
 if (props.coordinates) {
@@ -27,7 +28,7 @@ if (props.coordinates) {
     :draggable="false"
     :title="mark.mark_name"
     :media="{
-      photoUrl: mark.photo[0]!,
+      photoUrl: API_BASE_URL + mark.photo[0]!,
     }"
   />
 </template>
