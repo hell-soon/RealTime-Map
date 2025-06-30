@@ -3,22 +3,7 @@
 // Описываем основные сущности, которые передаются по сокету.
 // =================================================================
 
-import type { LngLat } from '@yandex/ymaps3-types'
-
-export interface Mark {
-  id: string
-  mark_name: string
-  start_at: string
-  end_at: string
-  is_ended: boolean
-  duration: number
-  owner_id: number
-  geom: {
-    type: string
-    coordinates: LngLat
-  }
-  photo: string
-}
+import type { Mark } from 'src/features/marks/types/idnex'
 
 export interface Message {
   id: string
