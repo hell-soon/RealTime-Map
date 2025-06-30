@@ -14,7 +14,7 @@ if (props.coordinates) {
   fetchMarks({
     longitude,
     latitude,
-    radius: 500,
+    radius: 5000,
   })
 }
 </script>
@@ -26,5 +26,8 @@ if (props.coordinates) {
     :coordinates="mark.geom.coordinates as any"
     :draggable="false"
     :title="mark.mark_name"
+    :media="{
+      photoUrl: mark.photo[0]!,
+    }"
   />
 </template>

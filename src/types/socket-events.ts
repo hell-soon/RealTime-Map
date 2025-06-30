@@ -46,7 +46,7 @@ export interface MarksRequestPayload {
 
 export interface ClientToServerEvents {
   // --- Публичные события (неймспейс /marks) ---
-  'marks:message': (payload: MarksRequestPayload) => void
+  'marks_message': (payload: MarksRequestPayload) => void
 
   // --- Приватные события (неймспейс /messages) ---
   'message:send': (payload: { text: string }) => void
@@ -64,10 +64,10 @@ export interface ServerToClientEvents {
   'connect_error': (error: Error) => void
 
   // --- События для меток (неймспейс /marks) ---
-  'marks:get': (payload: Mark[]) => void
-  'marks:created': (payload: Mark) => void
-  'marks:updated': (payload: Partial<Mark> & { id: string }) => void
-  'marks:deleted': (payload: { id: string }) => void
+  'marks_get': (payload: Mark[]) => void
+  'marks_created': (payload: Mark) => void
+  'marks_updated': (payload: Partial<Mark> & { id: string }) => void
+  'marks_deleted': (payload: { id: string }) => void
 
   // --- События для сообщений (неймспейс /messages) ---
   'message:new': (payload: Message) => void

@@ -21,7 +21,7 @@ export function useMarksSocket() {
 
     isLoading.value = true
     error.value = null
-    emit(MARKS_NAMESPACE, 'marks:message', params)
+    emit(MARKS_NAMESPACE, 'marks_message', params)
   }
 
   const handleGetMarks = (receivedMarks: Mark[]) => {
@@ -30,7 +30,7 @@ export function useMarksSocket() {
   }
 
   const unsubscribes = [
-    on(MARKS_NAMESPACE, 'marks:get', handleGetMarks),
+    on(MARKS_NAMESPACE, 'marks_get', handleGetMarks),
   ]
 
   onUnmounted(() => {
