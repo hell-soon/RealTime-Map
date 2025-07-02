@@ -9,7 +9,6 @@ const props = defineProps<{
 }>()
 
 const dialogStore = useDialogStore()
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 const { marks, fetchMarks } = useMarksSocket()
 
 if (props.coordinates) {
@@ -38,7 +37,7 @@ function handleMarkClick(markId: string | number) {
     :draggable="false"
     :title="mark.mark_name"
     :media="{
-      photoUrl: API_BASE_URL + mark.photo[0]!,
+      photoUrl: mark.photo[0]!,
     }"
     @click="handleMarkClick(mark.id)"
   />

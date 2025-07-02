@@ -7,8 +7,6 @@ const props = defineProps<{
   markId: string | number
 }>()
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
-
 const mark = ref<MarkFull | null>(null)
 const isLoading = ref(true)
 const error = ref<string | null>(null)
@@ -35,7 +33,7 @@ const slide = ref(0)
 
 const photoUrls = computed(() => {
   if (mark.value && mark.value.photo && mark.value.photo.length > 0) {
-    return mark.value.photo.map(p => API_BASE_URL + p)
+    return mark.value.photo
   }
   return []
 })
@@ -94,7 +92,7 @@ const hasPhotos = computed(() => photoUrls.value.length > 0)
         </div>
         <div class="text-subtitle2 text-grey">
           <q-avatar size="26px" class="q-mb-sm">
-            <img :src="`${API_BASE_URL}${mark.owner.avatar}`">
+            <img :src="`${mark.owner.avatar}`">
           </q-avatar>
           {{ mark.owner.username }}
         </div>
