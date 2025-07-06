@@ -80,11 +80,11 @@ const hasPhotos = computed(() => photoUrls.value.length > 0)
         </q-carousel>
         <q-img v-else :src="photoUrls[0]" :ratio="16 / 9" style="height: 200px" />
       </div>
-      <q-img v-else src="/placeholder.png" :ratio="16 / 9" style="height: 200px">
+      <!-- <q-img v-else src="/placeholder.png" :ratio="16 / 9" style="height: 200px">
         <div class="absolute-full text-subtitle2 flex flex-center">
           Нет изображения
         </div>
-      </q-img>
+      </q-img> -->
 
       <q-card-section>
         <div class="text-h6">

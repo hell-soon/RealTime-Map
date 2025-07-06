@@ -37,7 +37,7 @@ function handleMarkClick(markId: string | number) {
     :draggable="false"
     :title="mark.mark_name"
     :media="{
-      photoUrl: mark.photo[0]!,
+      photoUrl: mark.photo ? mark.photo[0] : undefined,
     }"
     @click="handleMarkClick(mark.id)"
   />

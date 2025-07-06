@@ -3,7 +3,7 @@ import type { LngLat } from '@yandex/ymaps3-types'
 import { YandexMapMarker } from 'vue-yandex-maps'
 
 interface Media {
-  photoUrl?: string
+  photoUrl?: string | undefined
   icon?: string
 }
 
@@ -11,7 +11,7 @@ interface Props {
   coordinates: LngLat
   draggable?: boolean
   settings?: object
-  media?: Media
+  media: Media
 }
 
 const props = withDefaults(defineProps<Props>(), {

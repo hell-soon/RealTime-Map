@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { YMap } from '@yandex/ymaps3-types'
-import MapMarker from 'src/components/Ui/MapMarker.vue'
 import GeolocationFeedback from 'src/features/geolocation/components/GeolocationFeedback.vue'
 import { useGeolocation } from 'src/features/geolocation/composables/useGeolocation'
 import BaseMapView from 'src/features/map-core/components/BaseMapView.vue'
@@ -34,13 +33,13 @@ function handleMapReady(map: YMap) {
       <MarksLayer
         :coordinates="userPosition"
       />
-      <MapMarker
+      <!-- <MapMarker
         :coordinates="[44.041146, 56.269901]"
         :draggable="false"
         :media="{
           photoUrl: 'https://avatars.githubusercontent.com/u/71484693?v=4',
         }"
-      />
+      /> -->
     </BaseMapView>
     <div
       v-else-if="!isLoadingGeolocation && !geolocationError && !userPosition"
