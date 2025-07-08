@@ -77,12 +77,12 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
 
 <style scoped lang="scss">
 .glass-card {
-  width: 500px;
-  max-width: 500px;
+  /* width: 500px;
+  max-width: 500px; */
   height: 100%;
   padding: 32px;
 
-  background: white;
+  /* background: white; */
   /* backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-radius: 20px;
