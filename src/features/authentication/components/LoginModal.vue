@@ -48,55 +48,40 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
 </script>
 
 <template>
-  <q-card>
-    <div class="glass-card">
-      <div class="text-h5 text-white text-center q-mb-lg">
-        {{ title }}
-      </div>
-
-      <QForm ref="formRef" @submit.prevent>
-        <transition name="fade-form" mode="out-in">
-          <component
-            :is="currentFormComponent"
-            :loading="isLoading"
-            @submit="onSubmit"
-          />
-        </transition>
-      </QForm>
-
-      <q-btn
-        :label="isRegisterMode ? t('auth.alreadyHaveAccount') : t('buttons.createAccount')"
-        flat
-        no-caps
-        class="full-width q-mt-md text-cyan-2"
-        @click="toggleMode"
-      />
+  <div class="glass-card">
+    <div class="text-h5 text-center q-mb-lg">
+      {{ title }}
     </div>
-  </q-card>
+
+    <QForm ref="formRef" @submit.prevent>
+      <transition
+        appear
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+        mode="out-in"
+      >
+        <component
+          :is="currentFormComponent"
+          :loading="isLoading"
+          @submit="onSubmit"
+        />
+      </transition>
+    </QForm>
+
+    <q-btn
+      :label="isRegisterMode ? t('auth.alreadyHaveAccount') : t('buttons.createAccount')"
+      flat
+      no-caps
+      :disable="isLoading"
+      class="full-width q-mt-md"
+      @click="toggleMode"
+    />
+  </div>
 </template>
 
 <style scoped lang="scss">
 .glass-card {
-  /* width: 500px;
-  max-width: 500px; */
   height: 100%;
   padding: 32px;
-
-  /* background: white; */
-  /* backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); */
 }
-
-/* .fade-form-enter-active,
-.fade-form-leave-active {
-  transition: transform 0.3s ease;
-}
-
-.fade-form-enter-from,
-.fade-form-leave-to {
-  transform: translateY(-100);
-} */
 </style>

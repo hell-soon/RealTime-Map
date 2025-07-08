@@ -11,7 +11,7 @@ const authStore = useAuthStore()
 const AVATAR_PLACEHOLDER = 'https://cdn.quasar.dev/img/boy-avatar.png'
 
 function openLogin() {
-  dialog.openDialog(LoginModal)
+  dialog.openDialog(LoginModal, {}, '')
 }
 </script>
 

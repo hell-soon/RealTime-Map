@@ -15,33 +15,29 @@ function logoutAndClose() {
 </script>
 
 <template>
-  <q-card>
-    <q-card-section class="row items-center q-pb-none">
-      <div class="text-h6">
-        {{ t('menu.header') }}
-      </div>
+  <q-card-section class="row items-center q-pb-none">
+    <div class="text-h6">
+      {{ t('menu.header') }}
+    </div>
 
-      <q-space />
+    <q-space />
+  </q-card-section>
 
-      <q-btn v-close-popup flat round dense icon="close" />
-    </q-card-section>
+  <q-card-section>
+    <ThemeToggle />
+  </q-card-section>
 
-    <q-card-section>
-      <ThemeToggle />
-    </q-card-section>
+  <q-separator />
 
-    <q-separator />
-
-    <q-card-actions v-if="authStore.token">
-      <q-btn
-        flat
-        no-caps
-        class="full-width"
-        color="negative"
-        icon="logout"
-        :label="t('auth.logout')"
-        @click="logoutAndClose"
-      />
-    </q-card-actions>
-  </q-card>
+  <q-card-actions v-if="authStore.token">
+    <q-btn
+      flat
+      no-caps
+      class="full-width"
+      color="negative"
+      icon="logout"
+      :label="t('auth.logout')"
+      @click="logoutAndClose"
+    />
+  </q-card-actions>
 </template>

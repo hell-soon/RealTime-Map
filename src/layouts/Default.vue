@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Header from 'components/Header/Index.vue'
+import DialoLayout from 'src/components/Ui/DialogLayout.vue'
 import { useTheme } from 'src/features/settings/composables/useInitialTheme'
 import { useDialogStore } from 'src/stores/dialog'
 
@@ -20,10 +21,12 @@ useTheme()
       position="right"
       maximized
     >
-      <component
-        :is="dialog.component"
-        v-bind="dialog.props"
-      />
+      <DialoLayout v-if="dialog.component">
+        <component
+          :is="dialog.component"
+          v-bind="dialog.props"
+        />
+      </DialoLayout>
     </q-dialog>
   </q-layout>
 </template>

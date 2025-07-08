@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MarkFull } from '../types'
+import BlurredImage from 'src/components/Ui/BlurredImage.vue'
 import { markApi } from 'src/utils/api/mark'
-import { computed, ref } from 'vue'
 
 const props = defineProps<{
   markId: string | number
@@ -42,9 +42,9 @@ const hasPhotos = computed(() => photoUrls.value.length > 0)
 </script>
 
 <template>
-  <q-card class="mark-details-sheet">
+  <div>
     <div v-if="isLoading" class="q-pa-md">
-      <q-skeleton height="200px" square />
+      <q-skeleton height="300px" square />
       <q-skeleton type="text" class="text-h6 q-mt-md" />
       <q-skeleton type="text" class="text-subtitle2" />
       <q-skeleton type="text" class="q-mt-md" />
@@ -57,33 +57,28 @@ const hasPhotos = computed(() => photoUrls.value.length > 0)
     </div>
 
     <template v-else-if="mark">
-      <div v-if="hasPhotos">
+      <div v-if="hasPhotos" style="height: 300px;">
         <q-carousel
           v-if="hasMultiplePhotos"
           v-model="slide"
           animated
           swipeable
-          arrows
-          navigation
           infinite
           control-color="white"
-          height="200px"
-          class="bg-black"
+          class="full-height"
         >
           <q-carousel-slide
             v-for="(url, index) in photoUrls"
             :key="url"
             :name="index"
             :img-src="url"
-          />
+            class="q-pa-none"
+          >
+            <BlurredImage :src="url" />
+          </q-carousel-slide>
         </q-carousel>
-        <q-img v-else :src="photoUrls[0]" :ratio="16 / 9" style="height: 200px" />
+        <BlurredImage v-else :src="photoUrls[0]!" />
       </div>
-      <!-- <q-img v-else src="/placeholder.png" :ratio="16 / 9" style="height: 200px">
-        <div class="absolute-full text-subtitle2 flex flex-center">
-          Нет изображения
-        </div>
-      </q-img> -->
 
       <q-card-section>
         <div class="text-h6">
@@ -100,16 +95,5 @@ const hasPhotos = computed(() => photoUrls.value.length > 0)
         {{ mark.additional_info }}
       </q-card-section>
     </template>
-
-    <q-card-actions align="right">
-      <q-btn v-close-popup flat color="primary" label="Закрыть" />
-    </q-card-actions>
-  </q-card>
+  </div>
 </template>
-
-<style lang="scss" scoped>
-.mark-details-sheet {
-  width: 100%;
-  max-width: 500px;
-}
-</style>

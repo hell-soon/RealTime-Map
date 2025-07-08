@@ -17,7 +17,7 @@ if (props.coordinates) {
     show_ended: true,
     longitude,
     latitude,
-    radius: 5000,
+    radius: 5000000,
   })
 }
 
@@ -26,7 +26,7 @@ const MarkDetailsSheet = defineAsyncComponent(
 )
 
 function handleMarkClick(markId: string | number) {
-  dialogStore.openDialog(MarkDetailsSheet, { markId })
+  dialogStore.openDialog(MarkDetailsSheet, { markId }, '')
 }
 </script>
 
