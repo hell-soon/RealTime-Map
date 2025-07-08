@@ -28,7 +28,7 @@ useTheme()
   </q-layout>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .fixed-right {
   width: 100%;
 }
