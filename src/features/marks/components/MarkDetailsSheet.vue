@@ -10,6 +10,7 @@ const props = defineProps<{
 const mark = ref<MarkFull | null>(null)
 const isLoading = ref(true)
 const error = ref<string | null>(null)
+const slide = ref(0)
 
 async function fetchData() {
   isLoading.value = true
@@ -28,8 +29,6 @@ async function fetchData() {
 }
 
 fetchData()
-
-const slide = ref(0)
 
 const photoUrls = computed(() => {
   if (mark.value && mark.value.photo && mark.value.photo.length > 0) {

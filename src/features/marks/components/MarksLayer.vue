@@ -14,6 +14,7 @@ const { marks, fetchMarks } = useMarksSocket()
 if (props.coordinates) {
   const [longitude, latitude] = props.coordinates
   fetchMarks({
+    show_ended: true,
     longitude,
     latitude,
     radius: 5000,

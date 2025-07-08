@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import Header from 'components/Header/Index.vue'
-import { useQuasar } from 'quasar'
 import { useTheme } from 'src/features/settings/composables/useInitialTheme'
 import { useDialogStore } from 'src/stores/dialog'
 
-const $q = useQuasar()
 const dialog = useDialogStore()
 
 useTheme()
-
-$q.addressbarColor.set('#1976D2')
 </script>
 
 <template>
@@ -19,7 +15,11 @@ $q.addressbarColor.set('#1976D2')
       <router-view />
     </q-page-container>
 
-    <q-dialog v-model="dialog.show">
+    <q-dialog
+      v-model="dialog.show"
+      position="right"
+      maximized
+    >
       <component
         :is="dialog.component"
         v-bind="dialog.props"
@@ -27,3 +27,9 @@ $q.addressbarColor.set('#1976D2')
     </q-dialog>
   </q-layout>
 </template>
+
+<style lang="scss" scoped>
+.fixed-right {
+  width: 100%;
+}
+</style>

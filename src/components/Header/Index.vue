@@ -28,7 +28,7 @@ const dialog = useDialogStore()
 
 function openSettings() {
   dialog.openDialog(MainSettings)
-  leftDrawerOpen.value = false
+  // leftDrawerOpen.value = false
 }
 
 function toggleLeftDrawer() {

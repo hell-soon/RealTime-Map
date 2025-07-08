@@ -63,13 +63,20 @@ onMounted(() => {
     >
       <template v-if="props.media?.photoUrl">
         <div class="marker__block">
-          <img :src="props.media?.photoUrl" alt="photo" class="marker-photo">
+          <img
+            :src="props.media?.photoUrl"
+            class="marker-photo"
+            alt="photo"
+          >
         </div>
       </template>
 
       <template v-else-if="props.media?.icon">
         <div class="marker__block">
-          <q-icon :name="props.media?.icon" class="marker-icon--quasar" />
+          <q-icon
+            :name="props.media?.icon"
+            class="marker-icon--quasar"
+          />
         </div>
       </template>
 
@@ -92,7 +99,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
 }
 
 .draggable {
@@ -134,7 +140,6 @@ onMounted(() => {
   background-color: white;
   position: relative;
   z-index: 2;
-
 }
 
 .marker-icon {
