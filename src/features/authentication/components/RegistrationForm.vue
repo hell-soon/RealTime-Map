@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RegistrationPayload } from 'src/stores/auth.store'
+import type { RegistrationPayload } from 'src/stores/auth'
 import { useValidationRules } from 'src/composables/useValidationRules'
 import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'

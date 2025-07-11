@@ -1,6 +1,6 @@
-import type { LoginPayload, RegistrationPayload } from 'src/stores/auth.store'
+import type { LoginPayload, RegistrationPayload } from 'src/stores/auth'
 import { useNotify } from 'src/composables/useNotify'
-import { useAuthStore } from 'src/stores/auth.store'
+import { useAuthStore } from 'src/stores/auth'
 import { useI18n } from 'vue-i18n'
 
 export function useAuth() {

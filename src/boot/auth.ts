@@ -1,6 +1,6 @@
 import { api } from 'boot/axios'
 import { boot } from 'quasar/wrappers'
-import { useAuthStore } from 'src/stores/auth.store'
+import { useAuthStore } from 'src/stores/auth'
 
 export default boot(async () => {
   const authStore = useAuthStore()

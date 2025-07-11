@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from 'src/stores/auth.store'
+import { useAuthStore } from 'src/stores/auth'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'
 import LoginModal from './LoginModal.vue'

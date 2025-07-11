@@ -42,15 +42,9 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async login(payload: LoginPayload) {
-      try {
-        const response = await authApi.login(payload)
-        this.setToken(response.access_token)
-        await this.fetchUser()
-      }
-      catch (error) {
-        console.error(error)
-        throw error
-      }
+      const response = await authApi.login(payload)
+      this.setToken(response.access_token)
+      await this.fetchUser()
     },
 
     async registration(payload: RegistrationPayload) {

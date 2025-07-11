@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LoginPayload, RegistrationPayload } from 'src/stores/auth.store'
+import type { LoginPayload, RegistrationPayload } from 'src/stores/auth'
 import { QForm } from 'quasar'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'
@@ -32,20 +32,15 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
   if (!isValid)
     return
 
-  try {
-    const mode = isRegisterMode.value ? 'register' : 'login'
-    await submit(mode, payload)
+  const mode = isRegisterMode.value ? 'register' : 'login'
+  await submit(mode, payload)
 
-    if (isRegisterMode.value) {
-      toggleMode()
-    }
-    else {
-      dialog.closeDialog()
-      emit('success')
-    }
+  if (isRegisterMode.value) {
+    toggleMode()
   }
-  catch (error) {
-    console.error('Submit failed at component level:', error)
+  else {
+    dialog.closeDialog()
+    emit('success')
   }
 }
 </script>
