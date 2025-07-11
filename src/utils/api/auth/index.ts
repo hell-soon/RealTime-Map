@@ -15,7 +15,7 @@ export const authApi = {
   },
 
   logout(): Promise<void> {
-    return apiService.post<void>('/auth/logout', {
+    return apiService.post<void>('/auth/logout', null, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

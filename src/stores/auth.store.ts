@@ -42,9 +42,15 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async login(payload: LoginPayload) {
-      const response = await authApi.login(payload)
-      this.setToken(response.access_token)
-      await this.fetchUser()
+      try {
+        const response = await authApi.login(payload)
+        this.setToken(response.access_token)
+        await this.fetchUser()
+      }
+      catch (error) {
+        console.error(error)
+        throw error
+      }
     },
 
     async registration(payload: RegistrationPayload) {
@@ -57,7 +63,6 @@ export const useAuthStore = defineStore('auth', {
         this.setUser(user)
       }
       catch (error) {
-        console.error('Fetching user failed in store:', error)
         this.logout()
         throw error
       }

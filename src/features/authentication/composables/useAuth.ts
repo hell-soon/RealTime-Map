@@ -1,12 +1,12 @@
 import type { LoginPayload, RegistrationPayload } from 'src/stores/auth.store'
-import { useQuasar } from 'quasar'
+import { useNotify } from 'src/composables/useNotify'
 import { useAuthStore } from 'src/stores/auth.store'
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 export function useAuth() {
+  const { notifyOnApiError, notifySuccess } = useNotify()
+
   const authStore = useAuthStore()
-  const $q = useQuasar()
   const { t } = useI18n()
 
   const isLoading = ref(false)
@@ -20,17 +20,19 @@ export function useAuth() {
       }
       else {
         await authStore.registration(payload as RegistrationPayload)
-        $q.notify({
-          color: 'positive',
-          message: t('notify.registrationSuccess'),
-          icon: 'check_circle',
-        })
+        notifySuccess(t('notify.registrationSuccess'))
       }
-      return true
     }
     catch (error) {
-      console.error(error)
-      return false
+      notifyOnApiError(error, {
+        statusMessages: {
+          400: 'okak',
+          422: t('notify.errors.validation'),
+          409: t('notify.errors.conflict'),
+          401: t('notify.errors.unauthorized'),
+        },
+      })
+      throw error
     }
     finally {
       isLoading.value = false

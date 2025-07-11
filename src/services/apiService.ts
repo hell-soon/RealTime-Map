@@ -1,20 +1,17 @@
-import type { AxiosError, AxiosRequestConfig, Method } from 'axios'
-import type { ApiError, BackendErrorDetail } from './api.types'
+import type { AxiosError, Method } from 'axios'
+import type { ApiError, BackendErrorDetail, RequestConfig } from './api.types'
 import { api } from 'boot/axios'
-import { Notify } from 'quasar'
-
-export interface RequestConfig extends AxiosRequestConfig {
-  suppressErrorNotify?: boolean
-}
 
 function isBackendError(data: any): data is BackendErrorDetail {
   return data && typeof data.message === 'string'
 }
 
-function handleError(error: AxiosError, config: RequestConfig): ApiError {
+function normalizeError(error: AxiosError): ApiError {
   const apiError: ApiError = {
     message: 'Произошла неизвестная ошибка',
     status: error.response?.status,
+    config: error.config as RequestConfig,
+    raw: error,
   }
 
   if (error.response) {
@@ -34,15 +31,6 @@ function handleError(error: AxiosError, config: RequestConfig): ApiError {
     apiError.message = error.message
   }
 
-  if (!config.suppressErrorNotify && apiError.status !== 401) {
-    Notify.create({
-      type: 'negative',
-      message: apiError.message,
-      position: 'top',
-      timeout: 3000,
-    })
-  }
-
   return apiError
 }
 
@@ -57,7 +45,8 @@ async function request<T>(method: Method, url: string, config: RequestConfig = {
     return response.data
   }
   catch (error) {
-    throw handleError(error as AxiosError, config)
+    const normalizedError = normalizeError(error as AxiosError)
+    throw normalizedError
   }
 }
 

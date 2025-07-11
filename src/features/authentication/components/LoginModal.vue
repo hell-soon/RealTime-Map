@@ -32,10 +32,10 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
   if (!isValid)
     return
 
-  const mode = isRegisterMode.value ? 'register' : 'login'
-  const success = await submit(mode, payload)
+  try {
+    const mode = isRegisterMode.value ? 'register' : 'login'
+    await submit(mode, payload)
 
-  if (success) {
     if (isRegisterMode.value) {
       toggleMode()
     }
@@ -43,6 +43,9 @@ async function onSubmit(payload: LoginPayload | RegistrationPayload) {
       dialog.closeDialog()
       emit('success')
     }
+  }
+  catch (error) {
+    console.error('Submit failed at component level:', error)
   }
 }
 </script>
