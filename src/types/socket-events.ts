@@ -33,6 +33,9 @@ export interface ClientToServerEvents {
   // --- Публичные события (неймспейс /marks) ---
   'marks_message': (payload: MarksRequestPayload) => void
 
+  // --- Для получения активных пользователей ---
+  'user_count': () => void
+
   // --- Приватные события (неймспейс /messages) ---
   'message:send': (payload: { text: string }) => void
 }
@@ -47,6 +50,8 @@ export interface ServerToClientEvents {
   'connect': () => void
   'disconnect': (reason: string) => void
   'connect_error': (error: Error) => void
+
+  'user_count': (payload: { count: number | undefined }) => void
 
   // --- События для меток (неймспейс /marks) ---
   'marks_get': (payload: Mark[]) => void

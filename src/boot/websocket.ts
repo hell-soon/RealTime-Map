@@ -6,6 +6,7 @@ export default boot(() => {
   const { connect } = useWebSocket()
   // const authStore = useAuthStore()
   connect('/marks')
+  connect('/count')
   // watch(() => authStore.token, (newToken, oldToken) => {
   //   if (newToken) {
   //     connect()

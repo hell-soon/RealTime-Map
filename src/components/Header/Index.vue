@@ -1,12 +1,40 @@
 <script setup lang="ts">
 import type { EssentialLinkProps } from 'src/components/Header/EssentialLink.vue'
 import EssentialLink from 'src/components/Header/EssentialLink.vue'
+import { useWebSocket } from 'src/composables/useWebSocket'
 import profileMini from 'src/features/authentication/components/profileMini.vue'
 import MainSettings from 'src/features/settings/components/MainSettings.vue'
 import { useDialogStore } from 'src/stores/dialog'
 import { useI18n } from 'vue-i18n'
 
 const $t = useI18n().t
+
+interface CountUser {
+  count: number
+}
+
+const MARKS_NAMESPACE = '/count'
+const userActive = ref<CountUser>()
+
+function useCountUser() {
+  const { on, emit, getSocketState } = useWebSocket()
+
+  onMounted(() => {
+    const socketState = getSocketState(MARKS_NAMESPACE)
+    if (!socketState?.isConnected) {
+      console.error('[COUNT] Сокет не подключен')
+      return
+    }
+
+    on(MARKS_NAMESPACE, 'user_count', (data: any) => {
+      userActive.value = data
+    })
+
+    emit(MARKS_NAMESPACE, 'user_count')
+  })
+}
+
+useCountUser()
 
 const linksList: EssentialLinkProps[] = [
   {
@@ -62,6 +90,8 @@ function toggleLeftDrawer() {
         v-bind="link"
       />
     </q-list>
+
+    <h5>{{ userActive?.count }}</h5>
 
     <div class="absolute-bottom q-pa-sm">
       <q-btn
