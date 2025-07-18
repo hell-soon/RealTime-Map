@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LngLat } from '@yandex/ymaps3-types'
+import { debounce } from 'quasar'
 import MapMarker from 'src/components/Ui/MapMarker.vue'
 import { useDialogStore } from 'src/stores/dialog'
 import { useMarksSocket } from '../composables/useMarksSocket'
@@ -11,15 +12,23 @@ const props = defineProps<{
 const dialogStore = useDialogStore()
 const { marks, fetchMarks } = useMarksSocket()
 
-if (props.coordinates) {
-  const [longitude, latitude] = props.coordinates
+const debouncFetchMark = debounce((coordinat: LngLat) => {
+  const [longitude, latitude] = coordinat
   fetchMarks({
     show_ended: true,
     longitude,
     latitude,
-    radius: 5000000,
+    radius: 100000,
   })
-}
+}, 300)
+
+watch(
+  () => props.coordinates,
+  (newCord) => {
+    if (newCord)
+      debouncFetchMark(newCord)
+  },
+)
 
 const MarkDetailsSheet = defineAsyncComponent(
   () => import('./MarkDetailsSheet.vue'),

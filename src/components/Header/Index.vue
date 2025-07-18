@@ -19,22 +19,24 @@ const userActive = ref<CountUser>()
 function useCountUser() {
   const { on, emit, getSocketState } = useWebSocket()
 
-  onMounted(() => {
-    const socketState = getSocketState(MARKS_NAMESPACE)
-    if (!socketState?.isConnected) {
-      console.error('[COUNT] Сокет не подключен')
-      return
-    }
+  const socketState = getSocketState(MARKS_NAMESPACE)
+  if (!socketState?.isConnected) {
+    console.error('[COUNT] Сокет не подключен')
+    return
+  }
 
-    on(MARKS_NAMESPACE, 'user_count', (data: any) => {
-      userActive.value = data
-    })
-
-    emit(MARKS_NAMESPACE, 'user_count')
+  on(MARKS_NAMESPACE, 'user_count', (data: any) => {
+    userActive.value = data
   })
+
+  emit(MARKS_NAMESPACE, 'user_count')
 }
 
-useCountUser()
+// говнокод ON
+setTimeout(() => {
+  useCountUser()
+}, 100)
+// говнокод OFF
 
 const linksList: EssentialLinkProps[] = [
   {
